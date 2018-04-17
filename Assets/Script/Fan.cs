@@ -4,18 +4,30 @@ using UnityEngine;
 
 public class Fan : MonoBehaviour {
 
-    public Ball ball;
-    public BoxCollider2D boxCol;
+    public GameObject fan;
+    private Vector2 newVector2;
+    private AreaEffector2D ae2d;
+
 	// Use this for initialization
 	void Start () {
-        boxCol = GetComponent<BoxCollider2D>();
+        ae2d = fan.GetComponent<AreaEffector2D>();
+        newVector2 = new Vector2();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (boxCol.IsTouching(ball.GetComponent<CircleCollider2D>()))
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            ball.AddVelocity();
+            newVector2 = fan.transform.localScale;
+            newVector2.x = newVector2.x * -1f;
+            fan.transform.localScale = newVector2;
+            ae2d.forceAngle = 180;
         }
-	}
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            ae2d.forceAngle = 0;
+        }
+
+    }
 }

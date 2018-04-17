@@ -16,9 +16,9 @@ public class Ball : MonoBehaviour {
     {
 
     }
-    public void AddVelocity()
-    {
-        rgdb.AddForce(new Vector2(6, 0));
-    }
+    //public void AddVelocity()
+    //{
+    //    rgdb.AddForce(new Vector2(6, 0));
+    //}
 
 }
