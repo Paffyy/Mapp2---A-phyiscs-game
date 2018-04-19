@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour {
     private Vector3 startLocation;
     public CircleCollider2D endArea;
     private RaycastHit2D tapped;
+ 
     // Use this for initialization
     void Start () {
         startLocation = ball.transform.position;
@@ -52,11 +53,12 @@ public class GameController : MonoBehaviour {
             ball.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
             startPanel.SetActive(true);
         }
-    }
+}
     public bool IsColliding()
     {
         return ball.GetComponent<CircleCollider2D>().IsTouching(endArea);
     }
+
     public void EnableBall()
     {
         startPanel.SetActive(false);

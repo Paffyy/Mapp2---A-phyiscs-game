@@ -30,4 +30,16 @@ public class Fan : MonoBehaviour {
         }
 
     }
+
+    public void FlipLeft()
+    {
+        fan.transform.localScale = new Vector3(fan.transform.localScale.x * -1, fan.transform.localScale.y, fan.transform.localScale.z);
+        ae2d.forceAngle = 180;
+    }
+
+    public void FlipRight()
+    {
+        fan.transform.localScale = new Vector3(fan.transform.localScale.x * -1, fan.transform.localScale.y, fan.transform.localScale.z);
+        ae2d.forceAngle = 0;
+    }
 }

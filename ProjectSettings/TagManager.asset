@@ -8,6 +8,7 @@ TagManager:
   - Fan
   - Moveable
   - move
+  - Close
   layers:
   - Default
   - TransparentFX
@@ -44,4 +45,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Machines
+    uniqueID: 1720237841
     locked: 0

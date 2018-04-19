@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class newScrept : MonoBehaviour {
+public class NewBehaviourScript : MonoBehaviour {
+
+    public GameObject settingsPanel;
 
 	// Use this for initialization
 	void Start () {
@@ -13,4 +15,9 @@ public class newScrept : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void OnMouseDown()
+    {
+        settingsPanel.SetActive(false);   
+    }
 }
