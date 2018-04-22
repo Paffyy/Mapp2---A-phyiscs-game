@@ -48,9 +48,10 @@ public class Machine : MonoBehaviour {
     {
         panel.SetActive(false);
     }
+    // Returns location of the top right corner of the sprite converted to UI coordinates
     public Vector3 GetLocation()
     {
-        return new Vector3(transform.position.x + 1.8f * 150, transform.position.y + 1.5f* 250, transform.position.z);
+        return Camera.main.WorldToScreenPoint(new Vector3(transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2, transform.position.y + GetComponent<SpriteRenderer>().bounds.size.y / 2, transform.position.z));
     }
     public void AddButtonToPanel(string buttonText, Button.ButtonClickedEvent actions, int i)
     {
