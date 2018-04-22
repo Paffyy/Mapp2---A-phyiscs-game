@@ -12,8 +12,15 @@ public class Machine : MonoBehaviour {
     private int flip;
     private RaycastHit2D tapped;
     private Collider2D colliderClick;
+    public GameObject machine;
+    private GameObject panel;
+    public Canvas canvas;
+
     void Start()
     {
+        panel = Instantiate(settingsPanel);
+        panel.transform.SetParent(canvas.transform, false);
+
         HideSettingsPanel();
         for (int i = 0; i < actions.Length || i < actionNames.Length; i++)
         {
@@ -34,12 +41,12 @@ public class Machine : MonoBehaviour {
     }
     public void ShowSettingsPanel()
     {
-        settingsPanel.transform.position = GetLocation();
-        settingsPanel.SetActive(true);
+        panel.transform.position = GetLocation();
+        panel.SetActive(true);
     }
     public void HideSettingsPanel()
     {
-        settingsPanel.SetActive(false);
+        panel.SetActive(false);
     }
     public Vector3 GetLocation()
     {
@@ -51,7 +58,7 @@ public class Machine : MonoBehaviour {
         var text = button.GetComponentInChildren<Text>();
         text.text = buttonText;
         button.onClick = actions;
-        button.transform.SetParent(settingsPanel.transform, false);
+        button.transform.SetParent(panel.transform, false);
     }
     public void OnMouseDown()
     {
