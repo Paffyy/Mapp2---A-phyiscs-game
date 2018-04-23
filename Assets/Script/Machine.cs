@@ -6,20 +6,15 @@ using UnityEngine.UI;
 
 public class Machine : MonoBehaviour {
     public GameObject settingsPanel;
-    public GameObject machine;
-    public Canvas canvas;
     public Button ButtonTemplate;
     public string[] actionNames;
     public Button.ButtonClickedEvent[] actions;
-    public Slider sliderTemplate;
-    public string sliderNames;
-    public Slider.SliderEvent sliderEvents;
-    public int minValue;
-    public int maxValue;
     private int flip;
     private RaycastHit2D tapped;
     private Collider2D colliderClick;
+    public GameObject machine;
     private GameObject panel;
+    public Canvas canvas;
 
     void Start()
     {
@@ -27,16 +22,10 @@ public class Machine : MonoBehaviour {
         panel.transform.SetParent(canvas.transform, false);
 
         HideSettingsPanel();
-        int i;
-        for (i = 0; i < actions.Length || i < actionNames.Length; i++)
+        for (int i = 0; i < actions.Length || i < actionNames.Length; i++)
         {
             AddButtonToPanel(actionNames[i], actions[i], i );
         }
-        if(sliderEvents.GetPersistentEventCount() > 0 && !sliderNames.Equals(""))
-        {
-            AddSliderToPanel(sliderNames, sliderEvents, i, minValue, maxValue);
-        }
-
         colliderClick = GetComponent<Collider2D>();
         tapped = new RaycastHit2D();
     }
@@ -50,7 +39,6 @@ public class Machine : MonoBehaviour {
             }
         }
     }
-
     public void ShowSettingsPanel()
     {
         panel.transform.position = GetLocation();
@@ -73,20 +61,9 @@ public class Machine : MonoBehaviour {
         button.onClick = actions;
         button.transform.SetParent(panel.transform, false);
     }
-
-    public void AddSliderToPanel(string sliderName, Slider.SliderEvent sliderEvents, int i, int minValue, int maxValue)
-    {
-        Slider slider = Instantiate(sliderTemplate, new Vector3(78, 110 - 40 * (i+1)), new Quaternion(0f, 0f, 0f, 0f));
-        slider.GetComponentInChildren<Text>().text = sliderNames;
-        slider.transform.SetParent(panel.transform, false);
-        slider.onValueChanged = sliderEvents;
-        slider.wholeNumbers = true;
-        slider.minValue = minValue;
-        slider.maxValue = maxValue;
-    }
-
     public void OnMouseDown()
     {
+
         ShowSettingsPanel();
     }
 
@@ -103,11 +80,5 @@ public class Machine : MonoBehaviour {
     public void FlipRight()
     {
         transform.localScale = new Vector3(1, transform.transform.localScale.y, transform.transform.localScale.z);
-    }
-
-    public void FanSpeed()
-    {
-        float sliderValue = panel.GetComponentInChildren<Slider>().value;
-        Debug.Log(sliderValue);
     }
 }
