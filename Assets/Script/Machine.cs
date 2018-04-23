@@ -16,27 +16,16 @@ public class Machine : MonoBehaviour {
     public Slider.SliderEvent sliderEvents;
     public int minValue;
     public int maxValue;
+    private float fanSpeed;
     private int flip;
     private RaycastHit2D tapped;
     private Collider2D colliderClick;
     private GameObject panel;
-
+    private Vector3 offset;
+    private Vector3 screenPoint;
+    private float heldDownTime = 0;
     void Start()
     {
-        panel = Instantiate(settingsPanel);
-        panel.transform.SetParent(canvas.transform, false);
-
-        HideSettingsPanel();
-        int i;
-        for (i = 0; i < actions.Length || i < actionNames.Length; i++)
-        {
-            AddButtonToPanel(actionNames[i], actions[i], i );
-        }
-        if(sliderEvents.GetPersistentEventCount() > 0 && !sliderNames.Equals(""))
-        {
-            AddSliderToPanel(sliderNames, sliderEvents, i, minValue, maxValue);
-        }
-
         colliderClick = GetComponent<Collider2D>();
         tapped = new RaycastHit2D();
     }
@@ -50,15 +39,31 @@ public class Machine : MonoBehaviour {
             }
         }
     }
-
     public void ShowSettingsPanel()
     {
+        panel = Instantiate(settingsPanel);
+        int i;
+        for (i = 0; i < actions.Length || i < actionNames.Length; i++)
+        {
+            AddButtonToPanel(actionNames[i], actions[i], i);
+        }
+        if (sliderEvents.GetPersistentEventCount() > 0 && !sliderNames.Equals(""))
+        {
+            AddSliderToPanel(sliderNames, sliderEvents, i, minValue, maxValue);
+        }
+        panel.transform.SetParent(canvas.transform, false);
         panel.transform.position = GetLocation();
         panel.SetActive(true);
+        panel.GetComponentInChildren<Slider>().value = (int)fanSpeed;
+
+
     }
     public void HideSettingsPanel()
     {
-        panel.SetActive(false);
+        if (panel != null)
+        {
+            Destroy(panel);
+        }
     }
     // Returns location of the top right corner of the sprite converted to UI coordinates
     public Vector3 GetLocation()
@@ -79,18 +84,37 @@ public class Machine : MonoBehaviour {
         Slider slider = Instantiate(sliderTemplate, new Vector3(78, 110 - 40 * (i+1)), new Quaternion(0f, 0f, 0f, 0f));
         slider.GetComponentInChildren<Text>().text = sliderNames;
         slider.transform.SetParent(panel.transform, false);
-        slider.onValueChanged = sliderEvents;
         slider.wholeNumbers = true;
         slider.minValue = minValue;
         slider.maxValue = maxValue;
-    }
+        slider.onValueChanged = sliderEvents;
 
-    public void OnMouseDown()
+    }
+    void OnMouseDown()
     {
-        ShowSettingsPanel();
+        if (panel == null)
+        {
+            ShowSettingsPanel();
+        }
+        screenPoint = Camera.main.WorldToScreenPoint(transform.position);
+        offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z));
     }
-
-
+    void OnMouseDrag()
+    {
+        heldDownTime += Time.deltaTime;
+        if (heldDownTime > 0.6f)
+        {
+            panel.SetActive(false);
+        }
+        Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+        Vector3 curPostition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
+        transform.position = curPostition;
+    }
+    void OnMouseUp()
+    {
+        panel.SetActive(true);
+        panel.transform.position = GetLocation();
+    }
     public void Flip()
     {
         flip = flip == 1 ? -1 : 1;
@@ -107,7 +131,7 @@ public class Machine : MonoBehaviour {
 
     public void FanSpeed()
     {
-        float sliderValue = panel.GetComponentInChildren<Slider>().value;
-        Debug.Log(sliderValue);
+        fanSpeed = panel.GetComponentInChildren<Slider>().value;
+        Debug.Log(fanSpeed);
     }
 }

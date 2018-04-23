@@ -8,6 +8,8 @@ public class InstansiateMachine : MonoBehaviour {
 
 
     public GameObject fanPrefab;
+    public GameObject machinePrefab;
+
     public Transform machineSpawn;
 
     private void Start()
@@ -23,6 +25,6 @@ public class InstansiateMachine : MonoBehaviour {
 
     public void instantiateFan()
     {
-        Instantiate(fanPrefab, machineSpawn.position, machineSpawn.rotation);
+        Instantiate(machinePrefab, machineSpawn.position, machineSpawn.rotation);
     }
 }
