@@ -15,4 +15,6 @@ public class FanSettingsPanel : MonoBehaviour {
 	void Update () {
         transform.position = new Vector3(fan.position.x + 1.8f, fan.position.y + 1.5f, transform.position.z);
 	}
+
+
 }
