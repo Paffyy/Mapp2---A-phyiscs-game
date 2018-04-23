@@ -1405,6 +1405,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114222513445329948, guid: 474de4f45b80a3f40a52903a09a118fc,
+        type: 2}
+      propertyPath: sliderEvents.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4438545346744692, guid: 474de4f45b80a3f40a52903a09a118fc, type: 2}
       propertyPath: m_LocalPosition.x
       value: 4.2
@@ -1462,6 +1467,52 @@ Prefab:
         type: 2}
       propertyPath: m_WasSpriteAssigned
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114222513445329948, guid: 474de4f45b80a3f40a52903a09a118fc,
+        type: 2}
+      propertyPath: sliderTemplate
+      value: 
+      objectReference: {fileID: 114907246724817920, guid: 93966283465a45640b717e7fbab4aadf,
+        type: 2}
+    - target: {fileID: 114222513445329948, guid: 474de4f45b80a3f40a52903a09a118fc,
+        type: 2}
+      propertyPath: sliderNames
+      value: FanSpeed()
+      objectReference: {fileID: 0}
+    - target: {fileID: 114222513445329948, guid: 474de4f45b80a3f40a52903a09a118fc,
+        type: 2}
+      propertyPath: sliderEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114222513445329948, guid: 474de4f45b80a3f40a52903a09a118fc,
+        type: 2}
+      propertyPath: sliderEvents.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114222513445329948, guid: 474de4f45b80a3f40a52903a09a118fc,
+        type: 2}
+      propertyPath: sliderEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 748990844}
+    - target: {fileID: 114222513445329948, guid: 474de4f45b80a3f40a52903a09a118fc,
+        type: 2}
+      propertyPath: sliderEvents.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: FanSpeed
+      objectReference: {fileID: 0}
+    - target: {fileID: 114222513445329948, guid: 474de4f45b80a3f40a52903a09a118fc,
+        type: 2}
+      propertyPath: sliderEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114222513445329948, guid: 474de4f45b80a3f40a52903a09a118fc,
+        type: 2}
+      propertyPath: minValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114222513445329948, guid: 474de4f45b80a3f40a52903a09a118fc,
+        type: 2}
+      propertyPath: maxValue
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 474de4f45b80a3f40a52903a09a118fc, type: 2}
