@@ -76,7 +76,8 @@ public class Machine : MonoBehaviour {
 
     public void AddSliderToPanel(string sliderName, Slider.SliderEvent sliderEvents, int i, int minValue, int maxValue)
     {
-        Slider slider = Instantiate(sliderTemplate, new Vector3(0, 110 - 60 * (i+1)), new Quaternion(0f, 0f, 0f, 0f));
+        Slider slider = Instantiate(sliderTemplate, new Vector3(78, 110 - 40 * (i+1)), new Quaternion(0f, 0f, 0f, 0f));
+        slider.GetComponentInChildren<Text>().text = sliderNames;
         slider.transform.SetParent(panel.transform, false);
         slider.onValueChanged = sliderEvents;
         slider.wholeNumbers = true;
