@@ -102,6 +102,10 @@ public class Machine : MonoBehaviour {
         {
             ShowSettingsPanel();
         }
+        else if(panel != null)
+        {
+            panel.SetActive(false);
+        }
         screenPoint = Camera.main.WorldToScreenPoint(transform.position);
         offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z));
     }
@@ -120,7 +124,7 @@ public class Machine : MonoBehaviour {
     {
         if (panel != null)
         {
-            panel.SetActive(true);
+           // panel.SetActive(true);
             panel.transform.position = GetLocation();
         }
     }

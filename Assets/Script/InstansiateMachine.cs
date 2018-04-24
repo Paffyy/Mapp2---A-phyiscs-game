@@ -4,25 +4,33 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class InstansiateMachine : MonoBehaviour {
+    Animator anim;
+    static bool sidePanelHide;
+
     public Button theButton;
-
-
     public GameObject fanPrefab;
     public GameObject machinePrefab;
-
     public Transform machineSpawn;
 
     private void Start()
     {
-        Button btn = theButton.GetComponent<Button>();
-        btn.onClick.AddListener(wichMachine);
+        anim = GetComponent<Animator>();
+        sidePanelHide = true;
     }
 
-    public void wichMachine()
+    public void animTriggers()
     {
-
+        Debug.Log("click MF");
+        if (anim.GetBool("sidePanelShow"))
+        {
+            anim.SetBool("sidePanelShow", false);
+        }
+        else
+        {
+            anim.SetBool("sidePanelShow", true);
+        }
     }
-
+    
     public void instantiateFan()
     {
         Instantiate(machinePrefab, machineSpawn.position, machineSpawn.rotation);
