@@ -129,11 +129,11 @@ public class Machine : MonoBehaviour {
     }
     public void FlipLeft()
     {
-        transform.localScale = new Vector3(-1, transform.transform.localScale.y, transform.transform.localScale.z);
+        transform.localScale = new Vector3(System.Math.Abs(transform.transform.localScale.x) * (-1), transform.transform.localScale.y, transform.transform.localScale.z);
     }
     public void FlipRight()
     {
-        transform.localScale = new Vector3(1, transform.transform.localScale.y, transform.transform.localScale.z);
+        transform.localScale = new Vector3(System.Math.Abs(transform.transform.localScale.x), transform.transform.localScale.y, transform.transform.localScale.z);
     }
 
     public void FanSpeed()
