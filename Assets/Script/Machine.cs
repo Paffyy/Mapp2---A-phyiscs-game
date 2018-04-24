@@ -26,6 +26,7 @@ public class Machine : MonoBehaviour {
     private Vector3 screenPoint;
     private List<GameObject> panels;
     private float heldDownTime = 0;
+    public GameController gameController;
 
     void Start()
     {
@@ -36,7 +37,7 @@ public class Machine : MonoBehaviour {
     {
         foreach (var item in Input.touches)
         {
-            if (item.phase == TouchPhase.Began)
+            if (item.phase == TouchPhase.Began && gameController.CanEdit())
             {
                 ShowSettingsPanel();
             }

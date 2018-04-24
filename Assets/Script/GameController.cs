@@ -17,8 +17,9 @@ public class GameController : MonoBehaviour {
     public GameObject startLocationArea;
     public enum gameState
     {
-        editMode,
-        playMode
+        EDIT,
+        PLAY,
+        WON
     }
     public gameState currentState;
     private RaycastHit2D tapped;
@@ -30,7 +31,7 @@ public class GameController : MonoBehaviour {
         tapped = new RaycastHit2D();
         stopButton.interactable = false;
         stopButton.image.enabled = false;
-        currentState = gameState.editMode;
+        currentState = gameState.EDIT;
     }
 
     // Update is called once per frame
@@ -38,12 +39,12 @@ public class GameController : MonoBehaviour {
 
         if (ball.GetComponent<Collider2D>().IsTouching(startLocationArea.GetComponent<Collider2D>()))
         {
-            currentState = gameState.editMode;
+            currentState = gameState.EDIT;
             Debug.Log(currentState);
         }
         else
         {
-            currentState = gameState.playMode;
+            currentState = gameState.PLAY;
             Debug.Log(currentState);
         }
         foreach (var item in Input.touches)
@@ -80,7 +81,7 @@ public class GameController : MonoBehaviour {
 
     public bool CanEdit()
     {
-        return currentState == gameState.editMode;
+        return currentState == gameState.EDIT;
     }
 
     public void EnableBall()
