@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,11 +19,12 @@ public class Machine : MonoBehaviour {
     public int maxValue;
     private float fanSpeed;
     private int flip;
+    private GameObject panel;
     private RaycastHit2D tapped;
     private Collider2D colliderClick;
-    private GameObject panel;
     private Vector3 offset;
     private Vector3 screenPoint;
+    private List<GameObject> panels;
     private float heldDownTime = 0;
     void Start()
     {
@@ -55,10 +57,12 @@ public class Machine : MonoBehaviour {
         panel.transform.position = GetLocation();
         panel.SetActive(true);
         panel.GetComponentInChildren<Slider>().value = (int)fanSpeed;
-
-
+        panel.GetComponentInChildren<Button>().onClick.AddListener(() => 
+        {
+            HideSettingsPanel(panel);
+        });
     }
-    public void HideSettingsPanel()
+    public void HideSettingsPanel(GameObject panel)
     {
         if (panel != null)
         {
@@ -106,14 +110,17 @@ public class Machine : MonoBehaviour {
         {
             panel.SetActive(false);
         }
-        Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
+        Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z);
         Vector3 curPostition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
         transform.position = curPostition;
     }
     void OnMouseUp()
     {
-        panel.SetActive(true);
-        panel.transform.position = GetLocation();
+        if (panel != null)
+        {
+            panel.SetActive(true);
+            panel.transform.position = GetLocation();
+        }
     }
     public void Flip()
     {
