@@ -135,7 +135,6 @@ public class Machine : MonoBehaviour {
     {
         transform.localScale = new Vector3(System.Math.Abs(transform.transform.localScale.x), transform.transform.localScale.y, transform.transform.localScale.z);
     }
-
     public void FanSpeed()
     {
         fanSpeed = panel.GetComponentInChildren<Slider>().value;
