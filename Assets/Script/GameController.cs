@@ -14,6 +14,13 @@ public class GameController : MonoBehaviour {
     public GameObject startPanel;
     private Vector3 startLocation;
     public CircleCollider2D endArea;
+    public GameObject startLocationArea;
+    public enum gameState
+    {
+        editMode,
+        playMode
+    }
+    public gameState currentState;
     private RaycastHit2D tapped;
  
     // Use this for initialization
@@ -23,10 +30,22 @@ public class GameController : MonoBehaviour {
         tapped = new RaycastHit2D();
         stopButton.interactable = false;
         stopButton.image.enabled = false;
+        currentState = gameState.editMode;
     }
 
     // Update is called once per frame
     void Update () {
+
+        if (ball.GetComponent<Collider2D>().IsTouching(startLocationArea.GetComponent<Collider2D>()))
+        {
+            currentState = gameState.editMode;
+            Debug.Log(currentState);
+        }
+        else
+        {
+            currentState = gameState.playMode;
+            Debug.Log(currentState);
+        }
         foreach (var item in Input.touches)
         {
             if (item.phase == TouchPhase.Began)
@@ -59,6 +78,11 @@ public class GameController : MonoBehaviour {
         return ball.GetComponent<CircleCollider2D>().IsTouching(endArea);
     }
 
+    public bool CanEdit()
+    {
+        return currentState == gameState.editMode;
+    }
+
     public void EnableBall()
     {
         startPanel.SetActive(false);
@@ -67,6 +91,17 @@ public class GameController : MonoBehaviour {
         playButton.image.enabled = false;
         stopButton.interactable = true;
         stopButton.image.enabled = true;
+    }
+
+    public void ResetBall()
+    {
+        ball.transform.position = startLocation;
+        ball.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+        stopButton.interactable = false;
+        stopButton.image.enabled = false;
+        playButton.interactable = true;
+        playButton.image.enabled = true;
+
     }
 
     public void ReturnToMenu()

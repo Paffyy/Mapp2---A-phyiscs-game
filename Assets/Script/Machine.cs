@@ -26,6 +26,7 @@ public class Machine : MonoBehaviour {
     private Vector3 screenPoint;
     private List<GameObject> panels;
     private float heldDownTime = 0;
+
     void Start()
     {
         colliderClick = GetComponent<Collider2D>();
