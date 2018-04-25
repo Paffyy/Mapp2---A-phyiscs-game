@@ -32,9 +32,20 @@ public class Conveyorbelt : MonoBehaviour {
         //Debug.Log(ball.velocity.x);
         //ball.mass = ballMass/2;
     }
+    public void FlipLeft()
+    {
+        transform.localScale = new Vector3(System.Math.Abs(transform.transform.localScale.x) * (-1), transform.transform.localScale.y, transform.transform.localScale.z);
+    }
+    public void FlipRight()
+    {
+        transform.localScale = new Vector3(System.Math.Abs(transform.transform.localScale.x), transform.transform.localScale.y, transform.transform.localScale.z);
+    }
+    public void SetSpeed()
+    {
 
-	// Update is called once per frame
-	void Update () {
+    }
+    // Update is called once per frame
+    void Update () {
 
 	}
 }

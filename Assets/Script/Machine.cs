@@ -35,11 +35,33 @@ public class Machine : MonoBehaviour {
     }
     private void Update()
     {
+        var isOpen = false;
+
         foreach (var item in Input.touches)
         {
-            if (item.phase == TouchPhase.Began && gameController.CanEdit())
+            if (item.phase == TouchPhase.Began && gameController.CanEdit() && !isOpen)
             {
+                isOpen = true;
                 ShowSettingsPanel();
+            }
+            if (item.phase == TouchPhase.Moved && gameController.CanEdit() && isOpen)
+            {
+                heldDownTime += Time.deltaTime;
+                if (heldDownTime > 0.6f)
+                {
+                    panel.SetActive(false);
+                }
+                Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z);
+                Vector3 curPostition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
+                transform.position = curPostition;
+            }
+            if (item.phase == TouchPhase.Ended && gameController.CanEdit()  && isOpen)
+            {
+                if (panel != null)
+                {
+                    panel.SetActive(true);
+                    panel.transform.position = GetLocation();
+                }
             }
         }
     }
