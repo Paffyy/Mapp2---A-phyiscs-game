@@ -9,20 +9,20 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1784862040640820}
+  m_RootGameObject: {fileID: 1229641649069888}
   m_IsPrefabParent: 1
---- !u!1 &1784862040640820
+--- !u!1 &1229641649069888
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4206198824670018}
-  - component: {fileID: 212408767500511936}
-  - component: {fileID: 114952586687601310}
-  - component: {fileID: 60973521221147994}
-  - component: {fileID: 60350631670596674}
+  - component: {fileID: 4855824373857120}
+  - component: {fileID: 212352430156897128}
+  - component: {fileID: 114618420928063486}
+  - component: {fileID: 60252658471872824}
+  - component: {fileID: 60602438578702522}
   m_Layer: 0
   m_Name: ConveyorBelt
   m_TagString: ConveyorBelt
@@ -30,12 +30,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4206198824670018
+--- !u!4 &4855824373857120
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1784862040640820}
+  m_GameObject: {fileID: 1229641649069888}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.795, y: -3.659, z: 0}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.5}
@@ -43,50 +43,15 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!60 &60350631670596674
+--- !u!60 &60252658471872824
 PolygonCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1784862040640820}
+  m_GameObject: {fileID: 1229641649069888}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 8d6a8db5652808e4a8cb819df588046f, type: 2}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 6.5, y: 0.77}
-    newSize: {x: 1.8, y: 5.39}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 3.3742728, y: -0.37662983}
-      - {x: 3.25, y: 0.185}
-      - {x: 3.06, y: 0.375}
-      - {x: 3.01, y: 0.385}
-      - {x: -3, y: 0.385}
-      - {x: -3.04, y: 0.375}
-      - {x: -3.25, y: 0.185}
-      - {x: -3.4507484, y: -0.37618923}
-      - {x: -3.08, y: -0.375}
-      - {x: -3.03, y: -0.385}
-      - {x: 3.07, y: -0.385}
---- !u!60 &60973521221147994
-PolygonCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1784862040640820}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: 8d6a8db5652808e4a8cb819df588046f, type: 2}
+  m_Material: {fileID: 6200000, guid: 09dd5aa8c3e18314bb8d409a97936bd5, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -95,7 +60,7 @@ PolygonCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 6.5, y: 0.77}
-    newSize: {x: 1.8, y: 5.39}
+    newSize: {x: 6.5, y: 0.77}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -113,26 +78,61 @@ PolygonCollider2D:
       - {x: -3.08, y: -0.375}
       - {x: -3.03, y: -0.385}
       - {x: 3.07, y: -0.385}
---- !u!114 &114952586687601310
+--- !u!60 &60602438578702522
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1229641649069888}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 09dd5aa8c3e18314bb8d409a97936bd5, type: 2}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 6.5, y: 0.77}
+    newSize: {x: 6.5, y: 0.77}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 3.3742728, y: -0.37662983}
+      - {x: 3.25, y: 0.185}
+      - {x: 3.06, y: 0.375}
+      - {x: 3.01, y: 0.385}
+      - {x: -3, y: 0.385}
+      - {x: -3.04, y: 0.375}
+      - {x: -3.25, y: 0.185}
+      - {x: -3.4507484, y: -0.37618923}
+      - {x: -3.08, y: -0.375}
+      - {x: -3.03, y: -0.385}
+      - {x: 3.07, y: -0.385}
+--- !u!114 &114618420928063486
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1784862040640820}
+  m_GameObject: {fileID: 1229641649069888}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c4d2566ba75c3f488e534010d7ba7e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b077849db154944aa99b6826921efcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  conveyorbelt: {fileID: 1784862040640820}
+  conveyorbelt: {fileID: 1229641649069888}
   ball: {fileID: 0}
   conveyorbeltSpeed: 2
---- !u!212 &212408767500511936
+--- !u!212 &212352430156897128
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1784862040640820}
+  m_GameObject: {fileID: 1229641649069888}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -161,12 +161,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 78c0fe3bebd4c864282a3a446016fe7f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 76365365b7aeade4096b557ca1849ecf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.8, y: 5.39}
+  m_Size: {x: 6.5, y: 0.77}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
