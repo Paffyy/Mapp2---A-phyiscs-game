@@ -92,6 +92,7 @@ public class GameController : MonoBehaviour {
         playButton.image.enabled = false;
         stopButton.interactable = true;
         stopButton.image.enabled = true;
+
     }
 
     public void ResetBall()

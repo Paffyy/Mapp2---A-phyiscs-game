@@ -11,7 +11,7 @@ public class InstansiateMachine : MonoBehaviour {
     public GameObject fanPrefab;
     public GameObject machinePrefab;
     public Transform machineSpawn;
-
+    public GameController gameController;
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -30,7 +30,10 @@ public class InstansiateMachine : MonoBehaviour {
             anim.SetBool("sidePanelShow", true);
         }
     }
-    
+    public void SetAnimBool()
+    {
+        anim.SetBool("sidePanelShow", true);
+    }
     public void instantiateFan()
     {
         Instantiate(machinePrefab, machineSpawn.position, machineSpawn.rotation);

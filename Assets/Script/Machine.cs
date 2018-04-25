@@ -36,7 +36,7 @@ public class Machine : MonoBehaviour {
     private void Update()
     {
         var isOpen = false;
-
+        //var prevPos =
         foreach (var item in Input.touches)
         {
             if (item.phase == TouchPhase.Began && gameController.CanEdit() && !isOpen)
