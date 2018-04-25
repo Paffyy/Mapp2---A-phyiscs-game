@@ -1172,7 +1172,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4855824373857120, guid: 749792327f9c7ce4393a6cbecb53a4d4, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4855824373857120, guid: 749792327f9c7ce4393a6cbecb53a4d4, type: 2}
       propertyPath: m_LocalRotation.x
@@ -3080,25 +3080,23 @@ PolygonCollider2D:
       - {x: -7.37, y: -1.115}
       - {x: -6.37, y: -1.185}
       - {x: -5.74, y: -1.185}
---- !u!111 &1972974968
-Animation:
+--- !u!95 &1972974968
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1972974965}
   m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e6e58e7671be43d42ba77c3df9ef0374, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!4 &1972974970 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4855824373857120, guid: 749792327f9c7ce4393a6cbecb53a4d4,
