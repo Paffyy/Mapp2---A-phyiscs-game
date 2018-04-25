@@ -2064,11 +2064,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4582213679435658, guid: 13a47f2b2ac2d6445af935b229119047, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.7
+      value: -2.75
       objectReference: {fileID: 0}
     - target: {fileID: 4582213679435658, guid: 13a47f2b2ac2d6445af935b229119047, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 9.13
+      value: 7.04
       objectReference: {fileID: 0}
     - target: {fileID: 4582213679435658, guid: 13a47f2b2ac2d6445af935b229119047, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2310,7 +2310,7 @@ Prefab:
         type: 2}
       propertyPath: actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 1972974965}
+      objectReference: {fileID: 1972974969}
     - target: {fileID: 114222513445329948, guid: 474de4f45b80a3f40a52903a09a118fc,
         type: 2}
       propertyPath: gameController
@@ -2319,7 +2319,37 @@ Prefab:
     - target: {fileID: 61816092001217084, guid: 474de4f45b80a3f40a52903a09a118fc,
         type: 2}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 61816092001217084, guid: 474de4f45b80a3f40a52903a09a118fc,
+        type: 2}
+      propertyPath: m_Offset.x
+      value: 0.094332695
+      objectReference: {fileID: 0}
+    - target: {fileID: 61816092001217084, guid: 474de4f45b80a3f40a52903a09a118fc,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 20.374586
+      objectReference: {fileID: 0}
+    - target: {fileID: 114222513445329948, guid: 474de4f45b80a3f40a52903a09a118fc,
+        type: 2}
+      propertyPath: actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: SetSpeed
+      objectReference: {fileID: 0}
+    - target: {fileID: 114222513445329948, guid: 474de4f45b80a3f40a52903a09a118fc,
+        type: 2}
+      propertyPath: actions.Array.data[0].m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 61816092001217084, guid: 474de4f45b80a3f40a52903a09a118fc,
+        type: 2}
+      propertyPath: m_Offset.y
+      value: 0.11504173
+      objectReference: {fileID: 0}
+    - target: {fileID: 61816092001217084, guid: 474de4f45b80a3f40a52903a09a118fc,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 4.770075
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 212752179430518534, guid: 474de4f45b80a3f40a52903a09a118fc, type: 2}
@@ -3109,6 +3139,12 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &1972974969 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114618420928063486, guid: 749792327f9c7ce4393a6cbecb53a4d4,
+    type: 2}
+  m_PrefabInternal: {fileID: 866847327}
+  m_Script: {fileID: 11500000, guid: 2b077849db154944aa99b6826921efcc, type: 3}
 --- !u!4 &1972974970 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4855824373857120, guid: 749792327f9c7ce4393a6cbecb53a4d4,

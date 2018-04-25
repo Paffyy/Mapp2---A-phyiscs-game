@@ -72,19 +72,21 @@ public class Machine : MonoBehaviour {
         for (i = 0; i < actions.Length || i < actionNames.Length; i++)
         {
             AddButtonToPanel(actionNames[i], actions[i], i);
+            panel.GetComponentInChildren<Button>().onClick.AddListener(() =>
+            {
+                HideSettingsPanel(panel);
+            }); 
         }
         if (sliderEvents.GetPersistentEventCount() > 0 && !sliderNames.Equals(""))
         {
             AddSliderToPanel(sliderNames, sliderEvents, i, minValue, maxValue);
+            panel.GetComponentInChildren<Slider>().value = (int)fanSpeed;
+
         }
         panel.transform.SetParent(canvas.transform, false);
         panel.transform.position = GetLocation();
         panel.SetActive(true);
-        panel.GetComponentInChildren<Slider>().value = (int)fanSpeed;
-        panel.GetComponentInChildren<Button>().onClick.AddListener(() => 
-        {
-            HideSettingsPanel(panel);
-        });
+       
     }
     public void HideSettingsPanel(GameObject panel)
     {
@@ -93,11 +95,7 @@ public class Machine : MonoBehaviour {
             Destroy(panel);
         }
     }
-    // Returns location of the top right corner of the sprite converted to UI coordinates
-    public Vector3 GetLocation()
-    {
-        return Camera.main.WorldToScreenPoint(new Vector3(transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2, transform.position.y + GetComponent<SpriteRenderer>().bounds.size.y / 2, transform.position.z));
-    }
+  
     public void AddButtonToPanel(string buttonText, Button.ButtonClickedEvent actions, int i)
     {
         Button button = Instantiate(ButtonTemplate, new Vector3(0,110- 60*i), new Quaternion(0f,0f,0f,0f));
@@ -128,8 +126,8 @@ public class Machine : MonoBehaviour {
         {
             settingsPanel.SetActive(false);
         }*/
-        screenPoint = Camera.main.WorldToScreenPoint(transform.position);
-        offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z));
+        screenPoint = Camera.main.WorldToScreenPoint(machine.transform.position);
+        offset = machine.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, machine.transform.position.z));
     }
     void OnMouseDrag()
     {
@@ -138,9 +136,9 @@ public class Machine : MonoBehaviour {
         {
             panel.SetActive(false);
         }
-        Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z);
+        Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, machine.transform.position.z);
         Vector3 curPostition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
-        transform.position = curPostition;
+        machine.transform.position = curPostition;
     }
     void OnMouseUp()
     {
@@ -149,6 +147,11 @@ public class Machine : MonoBehaviour {
             panel.SetActive(true);
             panel.transform.position = GetLocation();
         }
+    }
+    // Returns location of the top right corner of the sprite converted to UI coordinates
+    public Vector3 GetLocation()
+    {
+        return Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + GetComponentInParent<SpriteRenderer>().bounds.size.x / 2, machine.transform.position.y + GetComponentInParent<SpriteRenderer>().bounds.size.y / 2, machine.transform.position.z));
     }
     public void Flip()
     {
@@ -168,4 +171,64 @@ public class Machine : MonoBehaviour {
         fanSpeed = panel.GetComponentInChildren<Slider>().value;
         Debug.Log(fanSpeed);
     }
+    #region Old Events
+
+    //void OnMouseDown()
+    //{
+    //    if (panel == null)
+    //    {
+    //        ShowSettingsPanel();
+    //    }
+    //    /* else if(settingsPanel.activeSelf)            försökte får så att man kunde gömma settings panel om man klickar en gång utan att lyckas
+    //    {
+    //        settingsPanel.SetActive(false);
+    //    }*/
+    //    screenPoint = Camera.main.WorldToScreenPoint(transform.position);
+    //    offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z));
+    //}
+    //void OnMouseDrag()
+    //{
+    //    heldDownTime += Time.deltaTime;
+    //    if (heldDownTime > 0.6f)
+    //    {
+    //        panel.SetActive(false);
+    //    }
+    //    Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z);
+    //    Vector3 curPostition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
+    //    transform.position = curPostition;
+    //}
+    //void OnMouseUp()
+    //{
+    //    if (panel != null)
+    //    {
+    //        panel.SetActive(true);
+    //        panel.transform.position = GetLocation();
+    //    }
+    //}
+    //// Returns location of the top right corner of the sprite converted to UI coordinates
+    //public Vector3 GetLocation()
+    //{
+    //    machine
+    //    return Camera.main.WorldToScreenPoint(new Vector3(transform.position.x + GetComponent<SpriteRenderer>().bounds.size.x / 2, transform.position.y + GetComponent<SpriteRenderer>().bounds.size.y / 2, transform.position.z));
+    //}
+    //public void Flip()
+    //{
+    //    flip = flip == 1 ? -1 : 1;
+    //    transform.localScale = new Vector3(transform.transform.localScale.x * flip, transform.transform.localScale.y, transform.transform.localScale.z);
+    //}
+    //public void FlipLeft()
+    //{
+    //    transform.localScale = new Vector3(System.Math.Abs(transform.transform.localScale.x) * (-1), transform.transform.localScale.y, transform.transform.localScale.z);
+    //}
+    //public void FlipRight()
+    //{
+    //    transform.localScale = new Vector3(System.Math.Abs(transform.transform.localScale.x), transform.transform.localScale.y, transform.transform.localScale.z);
+    //}
+    //public void FanSpeed()
+    //{
+    //    fanSpeed = panel.GetComponentInChildren<Slider>().value;
+    //    Debug.Log(fanSpeed);
+    //}
+    #endregion
+
 }
