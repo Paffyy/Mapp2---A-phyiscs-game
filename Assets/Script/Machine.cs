@@ -18,7 +18,7 @@ public class Machine : MonoBehaviour {
     public Slider.SliderEvent sliderEvents;
     public int minValue;
     public int maxValue;
-    private float fanSpeed;
+    private float sliderValue;
     private int flip;
     private GameObject panel;
     private RaycastHit2D tapped;
@@ -69,23 +69,25 @@ public class Machine : MonoBehaviour {
     public void ShowSettingsPanel()
     {
         panel = Instantiate(settingsPanel);
-        int i;
-        for (i = 0; i < actions.Length || i < actionNames.Length; i++)
+        int i = 0;
+        for (i = 0; i < actions.Length && i < actionNames.Length; i++)
         {
             AddButtonToPanel(actionNames[i], actions[i], i);
-            panel.GetComponentInChildren<Button>().onClick.AddListener(() =>
-            {
-                HideSettingsPanel(panel);
-            }); 
+          
         }
+
         if (sliderEvents.GetPersistentEventCount() > 0 && !sliderNames.Equals(""))
         {
+            i = i == 0 ? 0 : i+1;
             AddSliderToPanel(sliderNames, sliderEvents, i, minValue, maxValue);
-            panel.GetComponentInChildren<Slider>().value = fanSpeed;
-
+            panel.GetComponentInChildren<Slider>().value = sliderValue;
         }
         panel.transform.SetParent(canvas.transform, false);
         panel.transform.position = GetLocation();
+        panel.GetComponentInChildren<Button>().onClick.AddListener(() =>
+        {
+            HideSettingsPanel(panel);
+        });
         panel.SetActive(true);
        
     }
@@ -108,7 +110,7 @@ public class Machine : MonoBehaviour {
 
     public void AddSliderToPanel(string sliderName, Slider.SliderEvent sliderEvents, int i, int minValue, int maxValue)
     {
-        Slider slider = Instantiate(sliderTemplate, new Vector3(78, 110 - 40 * (i+1)), new Quaternion(0f, 0f, 0f, 0f));
+        Slider slider = Instantiate(sliderTemplate, new Vector3(78, 110 - 40 * i), new Quaternion(0f, 0f, 0f, 0f));
         slider.GetComponentInChildren<Text>().text = sliderNames;
         slider.transform.SetParent(panel.transform, false);
         slider.wholeNumbers = true;
@@ -166,14 +168,13 @@ public class Machine : MonoBehaviour {
     {
         transform.localScale = new Vector3(System.Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
     }
-    public void SetFanSpeed()
+    public void SetSliderValue()
     {
-        fanSpeed = panel.GetComponentInChildren<Slider>().value;
-        Debug.Log(fanSpeed);
+        sliderValue = panel.GetComponentInChildren<Slider>().value;
     }
-    public float GetFanSpeed()
+    public float GetSliderValue()
     {
-        return fanSpeed;
+        return sliderValue;
     }
     #region Old Events
 

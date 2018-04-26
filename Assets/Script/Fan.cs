@@ -28,6 +28,6 @@ public class Fan : MonoBehaviour {
     }
     public void SetFanSpeed()
     {
-        ae2d.forceMagnitude = GetComponentInChildren<Machine>().GetFanSpeed() + defaultFanSpeed;
+        ae2d.forceMagnitude = GetComponentInChildren<Machine>().GetSliderValue() + defaultFanSpeed;
     }
 }

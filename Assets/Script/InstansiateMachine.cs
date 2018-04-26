@@ -9,7 +9,7 @@ public class InstansiateMachine : MonoBehaviour {
 
     public Button theButton;
     public GameObject fanPrefab;
-    public GameObject machinePrefab;
+    public GameObject beltPrefab;
     public Transform machineSpawn;
     public GameController gameController;
     private void Start()
@@ -38,5 +38,10 @@ public class InstansiateMachine : MonoBehaviour {
     {
         Instantiate(fanPrefab, machineSpawn.position, machineSpawn.rotation);
         fanPrefab.SetActive(true);
+    }
+    public void instantiateBelt()
+    {
+        Instantiate(beltPrefab, machineSpawn.position, machineSpawn.rotation);
+        beltPrefab.SetActive(true);
     }
 }
