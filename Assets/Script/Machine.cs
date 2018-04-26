@@ -10,6 +10,7 @@ public class Machine : MonoBehaviour {
     public GameObject machine;
     public Canvas canvas;
     public Button ButtonTemplate;
+    public GameController gameController;
     public string[] actionNames;
     public Button.ButtonClickedEvent[] actions;
     public Slider sliderTemplate;
@@ -26,7 +27,7 @@ public class Machine : MonoBehaviour {
     private Vector3 screenPoint;
     private List<GameObject> panels;
     private float heldDownTime = 0;
-    public GameController gameController;
+
 
     void Start()
     {
@@ -80,7 +81,7 @@ public class Machine : MonoBehaviour {
         if (sliderEvents.GetPersistentEventCount() > 0 && !sliderNames.Equals(""))
         {
             AddSliderToPanel(sliderNames, sliderEvents, i, minValue, maxValue);
-            panel.GetComponentInChildren<Slider>().value = (int)fanSpeed;
+            panel.GetComponentInChildren<Slider>().value = fanSpeed;
 
         }
         panel.transform.SetParent(canvas.transform, false);
@@ -114,7 +115,6 @@ public class Machine : MonoBehaviour {
         slider.minValue = minValue;
         slider.maxValue = maxValue;
         slider.onValueChanged = sliderEvents;
-
     }
     void OnMouseDown()
     {
@@ -156,20 +156,24 @@ public class Machine : MonoBehaviour {
     public void Flip()
     {
         flip = flip == 1 ? -1 : 1;
-        transform.localScale = new Vector3(transform.transform.localScale.x * flip, transform.transform.localScale.y, transform.transform.localScale.z);
+        transform.localScale = new Vector3(transform.localScale.x * flip, transform.localScale.y, transform.localScale.z);
     }
     public void FlipLeft()
     {
-        transform.localScale = new Vector3(System.Math.Abs(transform.transform.localScale.x) * (-1), transform.transform.localScale.y, transform.transform.localScale.z);
+        transform.localScale = new Vector3(System.Math.Abs(transform.localScale.x) * (-1), transform.localScale.y, transform.localScale.z);
     }
     public void FlipRight()
     {
-        transform.localScale = new Vector3(System.Math.Abs(transform.transform.localScale.x), transform.transform.localScale.y, transform.transform.localScale.z);
+        transform.localScale = new Vector3(System.Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
     }
-    public void FanSpeed()
+    public void SetFanSpeed()
     {
         fanSpeed = panel.GetComponentInChildren<Slider>().value;
         Debug.Log(fanSpeed);
+    }
+    public float GetFanSpeed()
+    {
+        return fanSpeed;
     }
     #region Old Events
 

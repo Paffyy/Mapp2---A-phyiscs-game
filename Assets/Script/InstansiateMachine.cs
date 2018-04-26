@@ -36,6 +36,7 @@ public class InstansiateMachine : MonoBehaviour {
     }
     public void instantiateFan()
     {
-        Instantiate(machinePrefab, machineSpawn.position, machineSpawn.rotation);
+        Instantiate(fanPrefab, machineSpawn.position, machineSpawn.rotation);
+        fanPrefab.SetActive(true);
     }
 }

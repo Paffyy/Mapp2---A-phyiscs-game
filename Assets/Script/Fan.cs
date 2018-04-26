@@ -1,60 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Fan : MonoBehaviour {
-    
-    public GameObject fan;
-    private Vector2 newVector2;
+
+    public float defaultFanSpeed;
     private AreaEffector2D ae2d;
-    private Vector3 offset;
-    private Vector3 screenPoint;
 	// Use this for initialization
 	void Start () {
-        ae2d = fan.GetComponent<AreaEffector2D>();
-        newVector2 = new Vector2();
+        ae2d = GetComponent<AreaEffector2D>();
+        ae2d.forceMagnitude = defaultFanSpeed;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            newVector2 = fan.transform.localScale;
-            newVector2.x = newVector2.x * -1f;
-            fan.transform.localScale = newVector2;
-            ae2d.forceAngle = 180;
-        }
-
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            ae2d.forceAngle = 0;
-        }
-
-    }
-
     public void FlipLeft()
     {
-        fan.transform.localScale = new Vector3(fan.transform.localScale.x * -1, fan.transform.localScale.y, fan.transform.localScale.z);
-        ae2d.forceAngle = 180;
-    }
+        transform.localScale = new Vector3(System.Math.Abs(transform.localScale.x) * (-1), transform.localScale.y, transform.localScale.z);
+        ae2d.forceAngle = -180;
 
+    }
     public void FlipRight()
     {
-        fan.transform.localScale = new Vector3(fan.transform.localScale.x * -1, fan.transform.localScale.y, fan.transform.localScale.z);
+        transform.localScale = new Vector3(System.Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         ae2d.forceAngle = 0;
-    }
-
-    void OnMouseDown()
-    {
-        screenPoint = Camera.main.WorldToScreenPoint(transform.position);
-        offset = transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z));
 
     }
-
-    private void OnMouseDrag()
+    public void SetFanSpeed()
     {
-        Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenPoint.z);
-        Vector3 curPostition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
-        transform.position = curPostition;
+        ae2d.forceMagnitude = GetComponentInChildren<Machine>().GetFanSpeed() + defaultFanSpeed;
     }
 }
