@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class FanRotation : MonoBehaviour {
 
-    public float speed = 100f;
+    public float speed = 150f;
+    public float rotateDirection = -1;
 
 	// Use this for initialization
 	void Start () {
@@ -13,6 +14,6 @@ public class FanRotation : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.Rotate(new Vector3(0f, 0f, -1), speed * Time.deltaTime);
+        transform.Rotate(new Vector3(0f, 0f, rotateDirection), speed * Time.deltaTime);
 	}
 }

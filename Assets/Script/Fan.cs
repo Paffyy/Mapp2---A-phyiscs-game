@@ -7,6 +7,7 @@ public class Fan : MonoBehaviour {
 
     public float defaultFanSpeed;
     private AreaEffector2D ae2d;
+    
 	// Use this for initialization
 	void Start () {
         ae2d = GetComponent<AreaEffector2D>();
@@ -18,16 +19,21 @@ public class Fan : MonoBehaviour {
     {
         transform.localScale = new Vector3(System.Math.Abs(transform.localScale.x) * (-1), transform.localScale.y, transform.localScale.z);
         ae2d.forceAngle = -180;
+        GetComponentInChildren<FanRotation>().rotateDirection = 1;
+        
 
     }
     public void FlipRight()
     {
         transform.localScale = new Vector3(System.Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         ae2d.forceAngle = 0;
+        GetComponentInChildren<FanRotation>().rotateDirection = -1;
 
     }
     public void SetFanSpeed()
     {
-        ae2d.forceMagnitude = GetComponentInChildren<Machine>().GetSliderValue() + defaultFanSpeed;
+        float sliderValue = GetComponentInChildren<Machine>().GetSliderValue();
+        ae2d.forceMagnitude = sliderValue + defaultFanSpeed;
+        GetComponentInChildren<FanRotation>().speed = (sliderValue + defaultFanSpeed)* 30;
     }
 }
