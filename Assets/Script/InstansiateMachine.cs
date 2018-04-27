@@ -12,6 +12,8 @@ public class InstansiateMachine : MonoBehaviour {
     public GameObject beltPrefab;
     public Transform machineSpawn;
     public GameController gameController;
+    public int fanCount;
+    public int beltCount;
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -36,12 +38,20 @@ public class InstansiateMachine : MonoBehaviour {
     }
     public void instantiateFan()
     {
-        Instantiate(fanPrefab, machineSpawn.position, machineSpawn.rotation);
-        fanPrefab.SetActive(true);
+        if (fanCount > 0)
+        {
+            Instantiate(fanPrefab, machineSpawn.position, machineSpawn.rotation);
+            fanPrefab.SetActive(true);
+            fanCount--;
+        }
     }
     public void instantiateBelt()
     {
-        Instantiate(beltPrefab, machineSpawn.position, machineSpawn.rotation);
-        beltPrefab.SetActive(true);
+        if (beltCount > 0)
+        {
+            Instantiate(beltPrefab, machineSpawn.position, machineSpawn.rotation);
+            beltPrefab.SetActive(true);
+            beltCount--;
+        }
     }
 }
