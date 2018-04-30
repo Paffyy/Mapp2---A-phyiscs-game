@@ -68,9 +68,10 @@ public class GameController : MonoBehaviour {
         }
         if (IsColliding())
         {
-            ball.transform.position = startLocation;
+            //ball.transform.position = startLocation;
             ball.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
             ball.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
+            ball.GetComponent<SpriteRenderer>().enabled = false;
             startPanel.SetActive(true);
         }
 }
