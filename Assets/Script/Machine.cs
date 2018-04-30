@@ -6,6 +6,12 @@ using UnityEngine.UI;
 
 
 public class Machine : MonoBehaviour {
+    Vector2 dist;
+    float posX;
+    float posY;
+
+
+
     public GameObject settingsPanel;
     public GameObject machine;
     public Canvas canvas;
@@ -130,6 +136,11 @@ public class Machine : MonoBehaviour {
         }*/
         screenPoint = Camera.main.WorldToScreenPoint(machine.transform.position);
         offset = machine.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, machine.transform.position.z));
+        /*
+        dist = Camera.main.WorldToScreenPoint(transform.position);
+        posX = Input.mousePosition.x - dist.x;
+        posY = Input.mousePosition.y - dist.y;
+        */
     }
     void OnMouseDrag()
     {
@@ -141,6 +152,11 @@ public class Machine : MonoBehaviour {
         Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, machine.transform.position.z);
         Vector3 curPostition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
         machine.transform.position = curPostition;
+    /*
+        Vector2 curPos = new Vector2(Input.mousePosition.x - posX, Input.mousePosition.y - posY);
+        Vector2 worldPos = Camera.main.ScreenToWorldPoint(curPos);
+        transform.position = worldPos;
+    */
     }
     void OnMouseUp()
     {
