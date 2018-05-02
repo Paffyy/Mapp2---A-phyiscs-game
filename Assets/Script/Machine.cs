@@ -46,8 +46,11 @@ public class Machine : MonoBehaviour {
             if (item.phase == TouchPhase.Began && gameController.CanEdit() && !isOpen)
             {
                 isOpen = true;
-                ShowSettingsPanel();
-            }
+                if (panel == null)
+                {
+                    ShowSettingsPanel();
+                }
+            }   
             if (item.phase == TouchPhase.Moved && gameController.CanEdit() && isOpen)
             {
                 heldDownTime += Time.deltaTime;
