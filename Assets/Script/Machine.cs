@@ -27,8 +27,9 @@ public class Machine : MonoBehaviour {
     private Vector3 screenPoint;
     private List<GameObject> panels;
     private float heldDownTime = 0;
-
-
+    private int settingsPanelWidth = 400;
+    private int settingsPanelHeight = 400;
+    private int latestButtonY = 170;
     void Start()
     {
         colliderClick = GetComponent<Collider2D>();
@@ -69,17 +70,15 @@ public class Machine : MonoBehaviour {
     public void ShowSettingsPanel()
     {
         panel = Instantiate(settingsPanel);
-        int i = 0;
-        for (i = 0; i < actions.Length && i < actionNames.Length; i++)
+        for (var i = 0; i < actions.Length && i < actionNames.Length; i++)
         {
-            AddButtonToPanel(actionNames[i], actions[i], i);
+            AddButtonToPanel(actionNames[i], actions[i]);
           
         }
 
         if (sliderEvents.GetPersistentEventCount() > 0 && !sliderNames.Equals(""))
         {
-            i = i == 0 ? 0 : i+1;
-            AddSliderToPanel(sliderNames, sliderEvents, i, minValue, maxValue);
+            AddSliderToPanel(sliderNames, sliderEvents, minValue, maxValue);
             panel.GetComponentInChildren<Slider>().value = sliderValue;
         }
         panel.transform.SetParent(canvas.transform, false);
@@ -96,27 +95,31 @@ public class Machine : MonoBehaviour {
         if (panel != null)
         {
             Destroy(panel);
+            latestButtonY = 170;
+
         }
     }
   
-    public void AddButtonToPanel(string buttonText, Button.ButtonClickedEvent actions, int i)
+    public void AddButtonToPanel(string buttonText, Button.ButtonClickedEvent actions)
     {
-        Button button = Instantiate(ButtonTemplate, new Vector3(0,110- 60*i), new Quaternion(0f,0f,0f,0f));
+        Button button = Instantiate(ButtonTemplate, new Vector3(0, latestButtonY - 60), new Quaternion(0f,0f,0f,0f));
         var text = button.GetComponentInChildren<Text>();
         text.text = buttonText;
         button.onClick = actions;
         button.transform.SetParent(panel.transform, false);
+        latestButtonY -= 60;
     }
 
-    public void AddSliderToPanel(string sliderName, Slider.SliderEvent sliderEvents, int i, int minValue, int maxValue)
+    public void AddSliderToPanel(string sliderName, Slider.SliderEvent sliderEvents, int minValue, int maxValue)
     {
-        Slider slider = Instantiate(sliderTemplate, new Vector3(78, 110 - 40 * i), new Quaternion(0f, 0f, 0f, 0f));
+        Slider slider = Instantiate(sliderTemplate, new Vector3(78, latestButtonY-60), new Quaternion(0f, 0f, 0f, 0f));
         slider.GetComponentInChildren<Text>().text = sliderNames;
         slider.transform.SetParent(panel.transform, false);
         slider.wholeNumbers = true;
         slider.minValue = minValue;
         slider.maxValue = maxValue;
         slider.onValueChanged = sliderEvents;
+        latestButtonY -= 60;
     }
     void OnMouseDown()
     {
@@ -153,7 +156,40 @@ public class Machine : MonoBehaviour {
     // Returns location of the top right corner of the sprite converted to UI coordinates
     public Vector3 GetLocation()
     {
-        return Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + GetComponentInParent<SpriteRenderer>().bounds.size.x / 2, machine.transform.position.y + GetComponentInParent<SpriteRenderer>().bounds.size.y / 2, machine.transform.position.z));
+        // Gets all corners of the machine sprite
+        var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + GetComponentInParent<SpriteRenderer>().bounds.size.x / 2, machine.transform.position.y + GetComponentInParent<SpriteRenderer>().bounds.size.y / 2, machine.transform.position.z));
+        var botRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + GetComponentInParent<SpriteRenderer>().bounds.size.x / 2, machine.transform.position.y - GetComponentInParent<SpriteRenderer>().bounds.size.y / 2, machine.transform.position.z));
+        var topLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - GetComponentInParent<SpriteRenderer>().bounds.size.x / 2, machine.transform.position.y + GetComponentInParent<SpriteRenderer>().bounds.size.y / 2, machine.transform.position.z));
+        var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - GetComponentInParent<SpriteRenderer>().bounds.size.x / 2, machine.transform.position.y - GetComponentInParent<SpriteRenderer>().bounds.size.y / 2, machine.transform.position.z));
+        var location = topRight;
+     
+        // Checks if the panel would appear outside in any direction
+
+        if (topRight.y > Camera.main.scaledPixelHeight) // outside top
+        {
+            location = new Vector3(topRight.x, botRight.y);
+            Debug.Log(location.x + ":" + location.y);
+
+        }
+        if (topLeft.y - settingsPanelHeight < 0) // outside bot
+        {
+            location.y = topLeft.y + settingsPanelHeight / 2 ;
+            Debug.Log(location.x + ":" + location.y);
+            if (topLeft.y - settingsPanelHeight / 2 < 0)
+            {
+                location.y = botRight.y + settingsPanelHeight;
+            }
+        }
+        if (topRight.x + settingsPanelWidth > Camera.main.pixelWidth) // outside right
+        {
+            location.x = topLeft.x - settingsPanelWidth;
+            Debug.Log(location.x + ":" +location.y);
+        }
+        if (topLeft.x - settingsPanelWidth < 0) // outside left
+        {
+            location.x = topRight.x;
+        }
+        return location;
     }
     public void Flip()
     {
