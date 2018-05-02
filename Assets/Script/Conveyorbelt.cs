@@ -11,10 +11,13 @@ public class Conveyorbelt : MonoBehaviour
     private float ballMass = 0;
     public float defaultConveyorbeltSpeed = 3;
     public float conveyorbeltSpeed;
+
+
     void Start()
     {
         SetSpeed();
     }
+
 
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -29,6 +32,8 @@ public class Conveyorbelt : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+
+
     }
     public void FlipLeft()
     {
