@@ -9,6 +9,8 @@ TagManager:
   - Moveable
   - move
   - Close
+  - ConveyorBelt
+  - professor
   layers:
   - Default
   - TransparentFX
