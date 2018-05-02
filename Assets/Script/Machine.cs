@@ -168,22 +168,23 @@ public class Machine : MonoBehaviour {
         if (topRight.y > Camera.main.scaledPixelHeight) // outside top
         {
             location = new Vector3(topRight.x, botRight.y);
-            Debug.Log(location.x + ":" + location.y);
 
         }
         if (topLeft.y - settingsPanelHeight < 0) // outside bot
         {
             location.y = topLeft.y + settingsPanelHeight / 2 ;
-            Debug.Log(location.x + ":" + location.y);
             if (topLeft.y - settingsPanelHeight / 2 < 0)
             {
                 location.y = botRight.y + settingsPanelHeight;
+                if (botLeft.y < 0)
+                {
+                    location.y = topRight.y + settingsPanelHeight;
+                }
             }
         }
         if (topRight.x + settingsPanelWidth > Camera.main.pixelWidth) // outside right
         {
             location.x = topLeft.x - settingsPanelWidth;
-            Debug.Log(location.x + ":" +location.y);
         }
         if (topLeft.x - settingsPanelWidth < 0) // outside left
         {
