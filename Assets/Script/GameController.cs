@@ -114,7 +114,7 @@ public class GameController : MonoBehaviour {
 
     public void ResetBoard()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     //Vector3 getScreenPoint()
