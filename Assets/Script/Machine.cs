@@ -51,7 +51,7 @@ public class Machine : MonoBehaviour {
             if (item.phase == TouchPhase.Moved && gameController.CanEdit() && isOpen)
             {
                 heldDownTime += Time.deltaTime;
-                if (heldDownTime > 0.6f)
+                if (heldDownTime > 0.4f)
                 {
                     panel.SetActive(false);
                 }
@@ -61,6 +61,29 @@ public class Machine : MonoBehaviour {
             }
             if (item.phase == TouchPhase.Ended && gameController.CanEdit()  && isOpen)
             {
+                // if outside, put in the middle
+                var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + GetComponentInParent<SpriteRenderer>().bounds.size.x / 2, machine.transform.position.y + GetComponentInParent<SpriteRenderer>().bounds.size.y / 2, machine.transform.position.z));
+                var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - GetComponentInParent<SpriteRenderer>().bounds.size.x / 2, machine.transform.position.y - GetComponentInParent<SpriteRenderer>().bounds.size.y / 2, machine.transform.position.z));
+                if (topRight.x > Camera.main.scaledPixelWidth - UIPanelWidth)
+                {
+                    machine.transform.position = new Vector3(0, 0);
+                    HideSettingsPanel(panel);
+                }
+                if (topRight.y > Camera.main.scaledPixelHeight)
+                {
+                    machine.transform.position = new Vector3(0, 0);
+                    HideSettingsPanel(panel);
+                }
+                if (botLeft.x < 0)
+                {
+                    machine.transform.position = new Vector3(0, 0);
+                    HideSettingsPanel(panel);
+                }
+                if (botLeft.y < 0)
+                {
+                    machine.transform.position = new Vector3(0, 0);
+                    HideSettingsPanel(panel);
+                }
                 if (panel != null)
                 {
                     panel.SetActive(true);
@@ -146,8 +169,6 @@ public class Machine : MonoBehaviour {
         Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, machine.transform.position.z);
         Vector3 curPostition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
         machine.transform.position = curPostition;
-
-
     }
     void OnMouseUp()
     {

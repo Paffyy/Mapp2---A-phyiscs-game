@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour {
 	}
     public void GoToMainScene()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(1);
     }
     
     public void ExitGame()

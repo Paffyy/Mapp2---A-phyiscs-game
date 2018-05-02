@@ -15,6 +15,8 @@ public class GameController : MonoBehaviour {
     private Vector3 startLocation;
     public CircleCollider2D endArea;
     public GameObject startLocationArea;
+    public int currentScene;
+    public int levelCount;
     public enum gameState
     {
         EDIT,
@@ -68,13 +70,17 @@ public class GameController : MonoBehaviour {
         }
         if (IsColliding())
         {
-            //ball.transform.position = startLocation;
-            ball.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
-            ball.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
-            ball.GetComponent<SpriteRenderer>().enabled = false;
-            startPanel.SetActive(true);
+            
+            if (currentScene + 1 > levelCount)
+            {
+                ReturnToMenu();
+            }
+            else
+            {
+                SceneManager.LoadScene(currentScene + 1);
+            }
         }
-}
+    }
     public bool IsColliding()
     {
         return ball.GetComponent<CircleCollider2D>().IsTouching(endArea);
@@ -114,7 +120,7 @@ public class GameController : MonoBehaviour {
 
     public void ResetBoard()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(currentScene);
     }
 
     //Vector3 getScreenPoint()

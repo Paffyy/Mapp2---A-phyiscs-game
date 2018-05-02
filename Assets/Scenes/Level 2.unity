@@ -192,6 +192,16 @@ Prefab:
       propertyPath: startPanel
       value: 
       objectReference: {fileID: 1062763565}
+    - target: {fileID: 114001260176108516, guid: 1ffb8dc4104d5a04f8ce3f674651bf14,
+        type: 2}
+      propertyPath: currentScene
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114001260176108516, guid: 1ffb8dc4104d5a04f8ce3f674651bf14,
+        type: 2}
+      propertyPath: levelCount
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1ffb8dc4104d5a04f8ce3f674651bf14, type: 2}
   m_IsPrefabParent: 0
@@ -1881,11 +1891,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4387961650323116, guid: 13a47f2b2ac2d6445af935b229119047, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -16.53
+      value: -16.5
       objectReference: {fileID: 0}
     - target: {fileID: 4387961650323116, guid: 13a47f2b2ac2d6445af935b229119047, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 9.95
+      value: 9.5
       objectReference: {fileID: 0}
     - target: {fileID: 4387961650323116, guid: 13a47f2b2ac2d6445af935b229119047, type: 2}
       propertyPath: m_LocalPosition.z
@@ -2564,12 +2574,12 @@ Prefab:
     - target: {fileID: 58640734049895596, guid: aae8b10652ce70e419a92d478794d9d5,
         type: 2}
       propertyPath: m_Offset.x
-      value: -0.040247977
+      value: 0.24634588
       objectReference: {fileID: 0}
     - target: {fileID: 58640734049895596, guid: aae8b10652ce70e419a92d478794d9d5,
         type: 2}
       propertyPath: m_Radius
-      value: 0.44041812
+      value: 0.72701204
       objectReference: {fileID: 0}
     - target: {fileID: 58640734049895596, guid: aae8b10652ce70e419a92d478794d9d5,
         type: 2}
