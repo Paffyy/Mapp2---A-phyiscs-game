@@ -5,15 +5,20 @@ using UnityEngine.UI;
 
 public class InstansiateMachine : MonoBehaviour {
     Animator anim;
-    static bool sidePanelHide;
-
-    public Button theButton;
+    [Header("PREFABS ")] 
     public GameObject fanPrefab;
     public GameObject beltPrefab;
+    [Header("")]
+    static bool sidePanelHide;
     public Transform machineSpawn;
     public GameController gameController;
+
     public int fanCount;
     public int beltCount;
+    
+    public Text fansLeft;
+    public Text beltLeft;
+
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -44,6 +49,8 @@ public class InstansiateMachine : MonoBehaviour {
             fanPrefab.SetActive(true);
             fanCount--;
         }
+        fansLeft.text = fanCount.ToString();
+        
     }
     public void instantiateBelt()
     {
@@ -53,5 +60,6 @@ public class InstansiateMachine : MonoBehaviour {
             beltPrefab.SetActive(true);
             beltCount--;
         }
+        beltLeft.text = beltCount.ToString();
     }
 }

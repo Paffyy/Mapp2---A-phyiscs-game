@@ -151,6 +151,7 @@ public class Machine : MonoBehaviour {
     }
     void OnMouseDown()
     {
+        
         if (panel == null)
         {
             ShowSettingsPanel();
@@ -160,7 +161,7 @@ public class Machine : MonoBehaviour {
             settingsPanel.SetActive(false);
         }*/
         screenPoint = Camera.main.WorldToScreenPoint(machine.transform.position);
-        offset = machine.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, machine.transform.position.z));
+        offset = machine.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
     }
     void OnMouseDrag()
     {
@@ -169,7 +170,8 @@ public class Machine : MonoBehaviour {
         {
             panel.SetActive(false);
         }
-        Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, machine.transform.position.z);
+
+        Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
         Vector3 curPostition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
         machine.transform.position = curPostition;
     }
