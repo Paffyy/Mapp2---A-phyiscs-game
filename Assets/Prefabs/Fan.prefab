@@ -407,6 +407,7 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
   minValue: 0
   maxValue: 20
+  outOfBounds: {fileID: 0}
 --- !u!114 &114184586960975456
 MonoBehaviour:
   m_ObjectHideFlags: 1

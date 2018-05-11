@@ -15,7 +15,6 @@ public class InstansiateMachine : MonoBehaviour {
 
     public int fanCount;
     public int beltCount;
-    
     public Text fansLeft;
     public Text beltLeft;
 
@@ -40,6 +39,50 @@ public class InstansiateMachine : MonoBehaviour {
     public void SetAnimBool()
     {
         anim.SetBool("sidePanelShow", true);
+    }
+    public void InstantiateMachine(GameObject prefab, Vector3 pos)
+    {
+        try
+        {
+            Instantiate(prefab);
+            prefab.transform.position = new Vector3 (pos.x,pos.y);
+            prefab.SetActive(true);
+        }
+        catch (System.Exception)
+        {
+
+            throw;
+        }
+    }
+    public int GetCount(string prefabType)
+    {
+        if (prefabType.Contains("belt"))
+        {
+            return beltCount;
+        }
+        else if (prefabType.Contains("fan"))
+        {
+            return fanCount;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    public void SetCount(string prefabType, Text count)
+    {
+        if (prefabType.Contains("belt"))
+        {
+            beltCount--;
+            count.text = beltCount.ToString();
+
+        }
+        else if (prefabType.Contains("fan"))
+        {
+            fanCount--;
+            count.text = fanCount.ToString();
+
+        }
     }
     public void instantiateFan()
     {

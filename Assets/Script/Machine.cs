@@ -33,57 +33,62 @@ public class Machine : MonoBehaviour {
     {
         outOfBounds.SetActive(false);
         _sprite = GetComponentInParent<SpriteRenderer>();
+        Input.multiTouchEnabled = false;
+
     }
     private void Update()
     {
         var isOpen = false;
         foreach (var item in Input.touches)
         {
-            if (item.phase == TouchPhase.Began && gameController.CanEdit() && !isOpen)
+            if (gameController.CanEdit())
             {
-                heldDownTime += Time.deltaTime;
-                isOpen = true;
-                if (panel == null)
+                if (item.phase == TouchPhase.Began && gameController.CanEdit() && !isOpen)
                 {
-                    ShowSettingsPanel();
+                    heldDownTime += Time.deltaTime;
+                    isOpen = true;
+                    if (panel == null)
+                    {
+                        ShowSettingsPanel();
+                    }
                 }
-            }
-            if (item.phase == TouchPhase.Moved && gameController.CanEdit() && isOpen)
-            {
-                panel.SetActive(false);
-                Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z);
-                Vector3 curPostition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
-                transform.position = curPostition;
-            }
-            if (item.phase == TouchPhase.Ended && gameController.CanEdit()  && isOpen)
-            {
-                // if outside, put in the middle
-                var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + _sprite.bounds.size.x / 2, machine.transform.position.y + _sprite.bounds.size.y / 2, machine.transform.position.z));
-                var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y - _sprite.bounds.size.y / 2, machine.transform.position.z));
-                if (topRight.x > Camera.main.scaledPixelWidth - UIPanelWidth)
+                if (item.phase == TouchPhase.Moved && gameController.CanEdit() && isOpen)
                 {
-                    machine.transform.position = new Vector3(0, 0);
-                    HideSettingsPanel(panel);
+                    panel.SetActive(false);
+                    Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z);
+                    Vector3 curPostition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
+                    transform.position = curPostition;
                 }
-                if (topRight.y > Camera.main.scaledPixelHeight)
+                if (item.phase == TouchPhase.Ended && gameController.CanEdit() && isOpen)
                 {
-                    machine.transform.position = new Vector3(0, 0);
-                    HideSettingsPanel(panel);
-                }
-                if (botLeft.x < 0)
-                {
-                    machine.transform.position = new Vector3(0, 0);
-                    HideSettingsPanel(panel);
-                }
-                if (botLeft.y < 0)
-                {
-                    machine.transform.position = new Vector3(0, 0);
-                    HideSettingsPanel(panel);
-                }
-                if (panel != null)
-                {
-                    panel.SetActive(true);
-                    panel.transform.position = GetLocation();
+                    // if outside, put in the middle
+                    var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + _sprite.bounds.size.x / 2, machine.transform.position.y + _sprite.bounds.size.y / 2, machine.transform.position.z));
+                    var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y - _sprite.bounds.size.y / 2, machine.transform.position.z));
+                    if (topRight.x > Camera.main.scaledPixelWidth - UIPanelWidth)
+                    {
+                        machine.transform.position = new Vector3(0, 0);
+                        HideSettingsPanel(panel);
+                    }
+                    if (topRight.y > Camera.main.scaledPixelHeight)
+                    {
+                        machine.transform.position = new Vector3(0, 0);
+                        HideSettingsPanel(panel);
+                    }
+                    if (botLeft.x < 0)
+                    {
+                        machine.transform.position = new Vector3(0, 0);
+                        HideSettingsPanel(panel);
+                    }
+                    if (botLeft.y < 0)
+                    {
+                        machine.transform.position = new Vector3(0, 0);
+                        HideSettingsPanel(panel);
+                    }
+                    if (panel != null)
+                    {
+                        panel.SetActive(true);
+                        panel.transform.position = GetLocation();
+                    }
                 }
             }
         }
@@ -143,51 +148,58 @@ public class Machine : MonoBehaviour {
     }
     void OnMouseDown()
     {
-        
-        if (panel == null)
+        if (gameController.CanEdit())
         {
-            ShowSettingsPanel();
+            if (panel == null)
+            {
+                ShowSettingsPanel();
+            }
+            /* else if(settingsPanel.activeSelf)            försökte får så att man kunde gömma settings panel om man klickar en gång utan att lyckas
+            {
+                settingsPanel.SetActive(false);
+            }*/
+            var screenPoint = Camera.main.WorldToScreenPoint(machine.transform.position);
+            offset = machine.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
         }
-        /* else if(settingsPanel.activeSelf)            försökte får så att man kunde gömma settings panel om man klickar en gång utan att lyckas
-        {
-            settingsPanel.SetActive(false);
-        }*/
-        var screenPoint = Camera.main.WorldToScreenPoint(machine.transform.position);
-        offset = machine.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
     }
     void OnMouseDrag()
     {
-        heldDownTime += Time.deltaTime;
-        if (heldDownTime > 0.6f)
+        if (gameController.CanEdit())
         {
-            panel.SetActive(false);
-        }
+            heldDownTime += Time.deltaTime;
+            if (heldDownTime > 0.6f)
+            {
+                panel.SetActive(false);
+            }
 
-        Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
-        Vector3 curPostition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
-        machine.transform.position = curPostition;
+            Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
+            Vector3 curPostition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
+            machine.transform.position = curPostition;
 
-        var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + _sprite.bounds.size.x / 2, machine.transform.position.y + _sprite.bounds.size.y / 2, machine.transform.position.z));
-        var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y - _sprite.bounds.size.y / 2, machine.transform.position.z));
-        if (topRight.x > Camera.main.scaledPixelWidth - UIPanelWidth)
-        {
-            outOfBounds.SetActive(true);
-        } else
-        {
-            outOfBounds.SetActive(false);
+            var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + _sprite.bounds.size.x / 2, machine.transform.position.y + _sprite.bounds.size.y / 2, machine.transform.position.z));
+            var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y - _sprite.bounds.size.y / 2, machine.transform.position.z));
+            if (topRight.x > Camera.main.scaledPixelWidth - UIPanelWidth)
+            {
+                outOfBounds.SetActive(true);
+            }
+            else
+            {
+                outOfBounds.SetActive(false);
+            }
+            if (topRight.y > Camera.main.scaledPixelHeight)
+            {
+                outOfBounds.SetActive(true);
+            }
+            if (botLeft.x < 0)
+            {
+                outOfBounds.SetActive(true);
+            }
+            if (botLeft.y < 0)
+            {
+                outOfBounds.SetActive(true);
+            }
         }
-        if (topRight.y > Camera.main.scaledPixelHeight)
-        {
-            outOfBounds.SetActive(true);
-        }
-        if (botLeft.x < 0)
-        {
-            outOfBounds.SetActive(true);
-        }
-        if (botLeft.y < 0)
-        {
-            outOfBounds.SetActive(true);
-        }
+    
     }
     void OnMouseUp()
     {
