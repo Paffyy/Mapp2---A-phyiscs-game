@@ -31,8 +31,11 @@ public class GameController : MonoBehaviour {
         startLocation = ball.transform.position;
         ball.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         tapped = new RaycastHit2D();
-        stopButton.interactable = false;
-        stopButton.image.enabled = false;
+        if (stopButton != null)
+        {
+            stopButton.interactable = false;
+            stopButton.image.enabled = false;
+        }
         currentState = gameState.EDIT;
     }
 

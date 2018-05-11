@@ -599,7 +599,7 @@ Prefab:
         type: 2}
       propertyPath: canvas
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1548766276}
     - target: {fileID: 114263709685718510, guid: 7ee7dfd7d469bc4439c795ee454c98ac,
         type: 2}
       propertyPath: machine
@@ -2007,6 +2007,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.14, y: 4.39}
   m_EdgeRadius: 0
+--- !u!1 &1345536800 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1517392864667552, guid: 4b73695ea63c4f4408edefb89dec1e5d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1358133860}
 --- !u!1001 &1358133860
 Prefab:
   m_ObjectHideFlags: 0
@@ -2070,7 +2075,7 @@ Prefab:
         type: 2}
       propertyPath: canvas
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1548766276}
     - target: {fileID: 114095014648446186, guid: 4b73695ea63c4f4408edefb89dec1e5d,
         type: 2}
       propertyPath: gameController
@@ -2544,6 +2549,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 0.5}
   m_EdgeRadius: 0
+--- !u!223 &1548766276 stripped
+Canvas:
+  m_PrefabParentObject: {fileID: 223827564537973976, guid: 59024aaaefb36344596b12efae333f32,
+    type: 2}
+  m_PrefabInternal: {fileID: 1833404406}
 --- !u!114 &1676549852 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114840634510382884, guid: 13a47f2b2ac2d6445af935b229119047,
@@ -2847,19 +2857,18 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1521571886238964, guid: 59024aaaefb36344596b12efae333f32, type: 2}
       propertyPath: m_Name
-      value: Canvas (3)
+      value: Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 114797713028274844, guid: 59024aaaefb36344596b12efae333f32,
         type: 2}
       propertyPath: fanPrefab
       value: 
-      objectReference: {fileID: 1517392864667552, guid: 4b73695ea63c4f4408edefb89dec1e5d,
-        type: 2}
+      objectReference: {fileID: 1345536800}
     - target: {fileID: 114797713028274844, guid: 59024aaaefb36344596b12efae333f32,
         type: 2}
       propertyPath: beltPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 736095162}
     - target: {fileID: 114797713028274844, guid: 59024aaaefb36344596b12efae333f32,
         type: 2}
       propertyPath: machineSpawn

@@ -20,44 +20,35 @@ public class Machine : MonoBehaviour {
     public int minValue;
     public int maxValue;
     private float sliderValue;
-    private int flip;
     private GameObject panel;
-    private RaycastHit2D tapped;
-    private Collider2D colliderClick;
     private Vector3 offset;
-    private Vector3 screenPoint;
-    private List<GameObject> panels;
     private float heldDownTime = 0;
     private int settingsPanelWidth = 400;
     private int settingsPanelHeight = 400;
     private int latestButtonY = 170;
     private int UIPanelWidth = 150;
+    private SpriteRenderer _sprite;
     void Start()
     {
-        colliderClick = GetComponent<Collider2D>();
-        tapped = new RaycastHit2D();
+        _sprite = GetComponentInParent<SpriteRenderer>();
     }
     private void Update()
     {
         var isOpen = false;
-        //var prevPos =
         foreach (var item in Input.touches)
         {
             if (item.phase == TouchPhase.Began && gameController.CanEdit() && !isOpen)
             {
+                heldDownTime += Time.deltaTime;
                 isOpen = true;
                 if (panel == null)
                 {
                     ShowSettingsPanel();
                 }
-            }   
+            }
             if (item.phase == TouchPhase.Moved && gameController.CanEdit() && isOpen)
             {
-                heldDownTime += Time.deltaTime;
-                if (heldDownTime > 0.4f)
-                {
-                    panel.SetActive(false);
-                }
+                panel.SetActive(false);
                 Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z);
                 Vector3 curPostition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
                 transform.position = curPostition;
@@ -65,8 +56,8 @@ public class Machine : MonoBehaviour {
             if (item.phase == TouchPhase.Ended && gameController.CanEdit()  && isOpen)
             {
                 // if outside, put in the middle
-                var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + GetComponentInParent<SpriteRenderer>().bounds.size.x / 2, machine.transform.position.y + GetComponentInParent<SpriteRenderer>().bounds.size.y / 2, machine.transform.position.z));
-                var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - GetComponentInParent<SpriteRenderer>().bounds.size.x / 2, machine.transform.position.y - GetComponentInParent<SpriteRenderer>().bounds.size.y / 2, machine.transform.position.z));
+                var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + _sprite.bounds.size.x / 2, machine.transform.position.y + _sprite.bounds.size.y / 2, machine.transform.position.z));
+                var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y - _sprite.bounds.size.y / 2, machine.transform.position.z));
                 if (topRight.x > Camera.main.scaledPixelWidth - UIPanelWidth)
                 {
                     machine.transform.position = new Vector3(0, 0);
@@ -101,7 +92,6 @@ public class Machine : MonoBehaviour {
         for (var i = 0; i < actions.Length && i < actionNames.Length; i++)
         {
             AddButtonToPanel(actionNames[i], actions[i]);
-          
         }
 
         if (sliderEvents.GetPersistentEventCount() > 0 && !sliderNames.Equals(""))
@@ -160,7 +150,7 @@ public class Machine : MonoBehaviour {
         {
             settingsPanel.SetActive(false);
         }*/
-        screenPoint = Camera.main.WorldToScreenPoint(machine.transform.position);
+        var screenPoint = Camera.main.WorldToScreenPoint(machine.transform.position);
         offset = machine.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
     }
     void OnMouseDrag()
@@ -177,8 +167,8 @@ public class Machine : MonoBehaviour {
     }
     void OnMouseUp()
     {
-        var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + GetComponentInParent<SpriteRenderer>().bounds.size.x / 2, machine.transform.position.y + GetComponentInParent<SpriteRenderer>().bounds.size.y / 2, machine.transform.position.z));
-        var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - GetComponentInParent<SpriteRenderer>().bounds.size.x / 2, machine.transform.position.y - GetComponentInParent<SpriteRenderer>().bounds.size.y / 2, machine.transform.position.z));
+        var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + _sprite.bounds.size.x / 2, machine.transform.position.y + _sprite.bounds.size.y / 2, machine.transform.position.z));
+        var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y - _sprite.bounds.size.y / 2, machine.transform.position.z));
         if (topRight.x > Camera.main.scaledPixelWidth - UIPanelWidth)
         {
             machine.transform.position = new Vector3(0,0);
@@ -209,10 +199,10 @@ public class Machine : MonoBehaviour {
     public Vector3 GetLocation()
     {
         // Gets all corners of the machine sprite
-        var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + GetComponentInParent<SpriteRenderer>().bounds.size.x / 2, machine.transform.position.y + GetComponentInParent<SpriteRenderer>().bounds.size.y / 2, machine.transform.position.z));
-        var botRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + GetComponentInParent<SpriteRenderer>().bounds.size.x / 2, machine.transform.position.y - GetComponentInParent<SpriteRenderer>().bounds.size.y / 2, machine.transform.position.z));
-        var topLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - GetComponentInParent<SpriteRenderer>().bounds.size.x / 2, machine.transform.position.y + GetComponentInParent<SpriteRenderer>().bounds.size.y / 2, machine.transform.position.z));
-        var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - GetComponentInParent<SpriteRenderer>().bounds.size.x / 2, machine.transform.position.y - GetComponentInParent<SpriteRenderer>().bounds.size.y / 2, machine.transform.position.z));
+        var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + _sprite.bounds.size.x / 2, machine.transform.position.y + _sprite.bounds.size.y / 2, machine.transform.position.z));
+        var botRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + _sprite.bounds.size.x / 2, machine.transform.position.y - _sprite.bounds.size.y / 2, machine.transform.position.z));
+        var topLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y + _sprite.bounds.size.y / 2, machine.transform.position.z));
+        var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y - _sprite.bounds.size.y / 2, machine.transform.position.z));
         var location = topRight;
      
         // Checks if the panel would appear outside in any direction
@@ -243,19 +233,6 @@ public class Machine : MonoBehaviour {
             location.x = topRight.x;
         }
         return location;
-    }
-    public void Flip()
-    {
-        flip = flip == 1 ? -1 : 1;
-        transform.localScale = new Vector3(transform.localScale.x * flip, transform.localScale.y, transform.localScale.z);
-    }
-    public void FlipLeft()
-    {
-        transform.localScale = new Vector3(System.Math.Abs(transform.localScale.x) * (-1), transform.localScale.y, transform.localScale.z);
-    }
-    public void FlipRight()
-    {
-        transform.localScale = new Vector3(System.Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
     }
     public void SetSliderValue()
     {
