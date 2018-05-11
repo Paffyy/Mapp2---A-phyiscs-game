@@ -4,7 +4,7 @@ using System.Linq;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.EventSystems;
 
 public class Machine : MonoBehaviour {
     public GameObject settingsPanel;
@@ -199,7 +199,7 @@ public class Machine : MonoBehaviour {
                 outOfBounds.SetActive(true);
             }
         }
-    
+
     }
     void OnMouseUp()
     {
@@ -207,7 +207,7 @@ public class Machine : MonoBehaviour {
         var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y - _sprite.bounds.size.y / 2, machine.transform.position.z));
         if (topRight.x > Camera.main.scaledPixelWidth - UIPanelWidth)
         {
-            machine.transform.position = new Vector3(0,0);
+            machine.transform.position = new Vector3(0, 0);
             HideSettingsPanel(panel);
         }
         if (topRight.y > Camera.main.scaledPixelHeight)
@@ -280,6 +280,7 @@ public class Machine : MonoBehaviour {
     {
         return sliderValue;
     }
+
     #region Old Events
 
     //void OnMouseDown()
