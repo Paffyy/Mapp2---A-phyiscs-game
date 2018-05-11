@@ -19,6 +19,7 @@ public class Machine : MonoBehaviour {
     public Slider.SliderEvent sliderEvents;
     public int minValue;
     public int maxValue;
+    public GameObject outOfBounds;
     private float sliderValue;
     private GameObject panel;
     private Vector3 offset;
@@ -30,6 +31,7 @@ public class Machine : MonoBehaviour {
     private SpriteRenderer _sprite;
     void Start()
     {
+        outOfBounds.SetActive(false);
         _sprite = GetComponentInParent<SpriteRenderer>();
     }
     private void Update()
@@ -164,6 +166,28 @@ public class Machine : MonoBehaviour {
         Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
         Vector3 curPostition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
         machine.transform.position = curPostition;
+
+        var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + _sprite.bounds.size.x / 2, machine.transform.position.y + _sprite.bounds.size.y / 2, machine.transform.position.z));
+        var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y - _sprite.bounds.size.y / 2, machine.transform.position.z));
+        if (topRight.x > Camera.main.scaledPixelWidth - UIPanelWidth)
+        {
+            outOfBounds.SetActive(true);
+        } else
+        {
+            outOfBounds.SetActive(false);
+        }
+        if (topRight.y > Camera.main.scaledPixelHeight)
+        {
+            outOfBounds.SetActive(true);
+        }
+        if (botLeft.x < 0)
+        {
+            outOfBounds.SetActive(true);
+        }
+        if (botLeft.y < 0)
+        {
+            outOfBounds.SetActive(true);
+        }
     }
     void OnMouseUp()
     {
@@ -194,6 +218,8 @@ public class Machine : MonoBehaviour {
             panel.SetActive(true);
             panel.transform.position = GetLocation();
         }
+        outOfBounds.SetActive(false);
+
     }
     // Returns location of the top right corner of the sprite converted to UI coordinates
     public Vector3 GetLocation()

@@ -682,6 +682,11 @@ Prefab:
       propertyPath: sliderNames
       value: SetSpeed()
       objectReference: {fileID: 0}
+    - target: {fileID: 114263709685718510, guid: 7ee7dfd7d469bc4439c795ee454c98ac,
+        type: 2}
+      propertyPath: outOfBounds
+      value: 
+      objectReference: {fileID: 588506967}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7ee7dfd7d469bc4439c795ee454c98ac, type: 2}
   m_IsPrefabParent: 0
@@ -1078,6 +1083,74 @@ Transform:
   m_Father: {fileID: 49931425}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &588506967
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 588506968}
+  - component: {fileID: 588506970}
+  - component: {fileID: 588506969}
+  m_Layer: 0
+  m_Name: oob
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &588506968
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 588506967}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 951786685}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -75, y: 0}
+  m_SizeDelta: {x: 1130, y: 720}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &588506969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 588506967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 6f7df65cb7ae2a046bcaefd1556d7812, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &588506970
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 588506967}
 --- !u!1001 &667566013
 Prefab:
   m_ObjectHideFlags: 0
@@ -1549,6 +1622,11 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2, y: 0.5}
   m_EdgeRadius: 0
+--- !u!224 &951786685 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 224268601323344382, guid: 59024aaaefb36344596b12efae333f32,
+    type: 2}
+  m_PrefabInternal: {fileID: 1833404406}
 --- !u!1 &957102904
 GameObject:
   m_ObjectHideFlags: 0
@@ -2215,6 +2293,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114095014648446186, guid: 4b73695ea63c4f4408edefb89dec1e5d,
+        type: 2}
+      propertyPath: outOfBounds
+      value: 
+      objectReference: {fileID: 588506967}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4b73695ea63c4f4408edefb89dec1e5d, type: 2}
   m_IsPrefabParent: 0
@@ -2913,6 +2996,21 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ReturnToMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 114376239693631706, guid: 59024aaaefb36344596b12efae333f32,
+        type: 2}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114376239693631706, guid: 59024aaaefb36344596b12efae333f32,
+        type: 2}
+      propertyPath: m_ReferenceResolution.x
+      value: 1280
+      objectReference: {fileID: 0}
+    - target: {fileID: 114376239693631706, guid: 59024aaaefb36344596b12efae333f32,
+        type: 2}
+      propertyPath: m_ReferenceResolution.y
+      value: 720
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 59024aaaefb36344596b12efae333f32, type: 2}
