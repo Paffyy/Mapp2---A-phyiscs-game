@@ -4,45 +4,67 @@ using UnityEngine;
 
 public class Rocket : MonoBehaviour {
 
-	public Rigidbody2D ball;
-    public Collider2D rocketCollider;
-    public Collider2D rocketDoor;
-	private Rigidbody2D rocket;
-    //public SpriteRenderer ramp;
-    public Vector2 rocketForce = new Vector2(0.0f, 0.5f);
+    public GameObject Ball;
     public float FlyTime;
+    public GameObject RocketParent;
+    public BoxCollider2D RocketCollider;
+    public BoxCollider2D RocketColliderFront;
+    public BoxCollider2D PlatformCollider;
+    private Animator anim;
+    private Rigidbody2D rgbd2d;
 
 	// Use this for initialization
 	void Start () {
-		rocket = GetComponent<Rigidbody2D>();
+        anim = RocketParent.GetComponent<Animator>();
+        rgbd2d = GetComponent<Rigidbody2D>();
 	}
 
 	// Update is called once per frame
 	void Update () {
-
+        if (RocketColliderFront.IsTouchingLayers())
+        {
+            Debug.Log("test");
+            RocketCollider.enabled = false;
+            anim.StopPlayback();
+            anim.enabled = false;
+            Ball.transform.parent = null;
+            rgbd2d.constraints = RigidbodyConstraints2D.None;
+        }
 	}
 
-	private void OnTriggerStay2D(Collider2D coll){
-			if (coll.CompareTag("Ball")){
-            //ramp.enabled = false;
-            Invoke("FlyRocket", 1);
-            Invoke("FreeBall", FlyTime);
-			}
-	}
-
-    private void FlyRocket()
+    private void OnTriggerStay2D(Collider2D other)
     {
-        ball.transform.parent = rocket.transform;
-        rocketDoor.enabled = true;
-        rocket.constraints = RigidbodyConstraints2D.None;
-        rocket.AddForce(rocketForce, ForceMode2D.Impulse);
+     if (other.CompareTag("Ball"))
+        {
+            Ball.transform.parent = transform;
+            Ball.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        }   
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Ball"))
+        {
+            anim.enabled = true;
+            anim.Play("Rocket");
+        }
+    }
+
+    public void Crash()
+    {
+        RocketCollider.enabled = false;
+        anim.StopPlayback();
+        anim.enabled = false;
+        Ball.transform.parent = null;
+        rgbd2d.constraints = RigidbodyConstraints2D.None;
+    }
+
 
     private void FreeBall()
     {
-        rocketDoor.enabled = false;
-        rocketCollider.enabled = false;
-        ball.transform.parent = null;
+        //   rocketDoor.enabled = false;
+       // rocketCollider.enabled = false;
+      //  ball.transform.parent = null;
     }
 
 

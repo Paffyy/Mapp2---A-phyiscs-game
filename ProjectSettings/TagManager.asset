@@ -11,6 +11,8 @@ TagManager:
   - Close
   - ConveyorBelt
   - professor
+  - Platform
+  - Rocket
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - 
   - 
   - Ball
-  - 
+  - Platform
   - 
   - 
   - 

@@ -45,12 +45,12 @@ public class GameController : MonoBehaviour {
         if (ball.GetComponent<Collider2D>().IsTouching(startLocationArea.GetComponent<Collider2D>()))
         {
             currentState = gameState.EDIT;
-            //Debug.Log(currentState);
+            Debug.Log(currentState);
         }
         else
         {
             currentState = gameState.PLAY;
-            //Debug.Log(currentState);
+            Debug.Log(currentState);
         }
         foreach (var item in Input.touches)
         {
