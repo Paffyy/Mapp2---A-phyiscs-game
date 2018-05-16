@@ -40,12 +40,11 @@ public class Rocket : MonoBehaviour {
         }
         if (collision.CompareTag("Platform"))
         {
+          RocketCollider.enabled = false;
           Ball.transform.parent = null;
           anim.StopPlayback();
           anim.enabled = false;
           rgbd2d.constraints = RigidbodyConstraints2D.None;
-          RocketCollider.enabled = false;
-
         }
     }
 

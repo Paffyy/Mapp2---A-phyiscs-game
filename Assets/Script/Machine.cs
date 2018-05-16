@@ -113,7 +113,7 @@ public class Machine : MonoBehaviour {
             HideSettingsPanel(panel);
         });
         panel.SetActive(true);
-       
+
     }
     public void HideSettingsPanel(GameObject panel)
     {
@@ -124,7 +124,7 @@ public class Machine : MonoBehaviour {
 
         }
     }
-  
+
     public void AddButtonToPanel(string buttonText, Button.ButtonClickedEvent actions)
     {
         Button button = Instantiate(ButtonTemplate, new Vector3(0, latestButtonY - 60), new Quaternion(0f,0f,0f,0f));
@@ -242,7 +242,7 @@ public class Machine : MonoBehaviour {
         var topLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y + _sprite.bounds.size.y / 2, machine.transform.position.z));
         var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y - _sprite.bounds.size.y / 2, machine.transform.position.z));
         var location = topRight;
-     
+
         // Checks if the panel would appear outside in any direction
 
         if (topRight.y > Camera.main.scaledPixelHeight) // outside top

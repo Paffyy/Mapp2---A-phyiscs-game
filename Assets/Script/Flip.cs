@@ -5,6 +5,7 @@ using UnityEngine;
 public class Flip : MonoBehaviour {
 
     public GameObject ball;
+    public GameObject FlipParent;
     private Animator anim;
     private AreaEffector2D ae2d;
 
@@ -12,9 +13,9 @@ public class Flip : MonoBehaviour {
 	void Start () {
         ae2d = this.GetComponent<AreaEffector2D>();
        ae2d.forceMagnitude = 0;
-        anim = this.GetComponent<Animator>();
+        anim = FlipParent.GetComponent<Animator>();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 	    if (ball.GetComponent<CircleCollider2D>().IsTouching(this.GetComponent<BoxCollider2D>()))
