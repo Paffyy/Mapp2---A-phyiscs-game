@@ -8,8 +8,6 @@ public class Rocket : MonoBehaviour {
     public float FlyTime;
     public GameObject RocketParent;
     public BoxCollider2D RocketCollider;
-    public BoxCollider2D RocketColliderFront;
-    public BoxCollider2D PlatformCollider;
     private Animator anim;
     private Rigidbody2D rgbd2d;
 
@@ -21,15 +19,7 @@ public class Rocket : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        if (RocketColliderFront.IsTouchingLayers())
-        {
-            Debug.Log("test");
-            RocketCollider.enabled = false;
-            anim.StopPlayback();
-            anim.enabled = false;
-            Ball.transform.parent = null;
-            rgbd2d.constraints = RigidbodyConstraints2D.None;
-        }
+
 	}
 
     private void OnTriggerStay2D(Collider2D other)
@@ -38,7 +28,7 @@ public class Rocket : MonoBehaviour {
         {
             Ball.transform.parent = transform;
             Ball.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        }   
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -48,17 +38,28 @@ public class Rocket : MonoBehaviour {
             anim.enabled = true;
             anim.Play("Rocket");
         }
+        if (collision.CompareTag("Platform"))
+        {
+          Ball.transform.parent = null;
+          anim.StopPlayback();
+          anim.enabled = false;
+          rgbd2d.constraints = RigidbodyConstraints2D.None;
+          RocketCollider.enabled = false;
+
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D collision){
     }
 
     public void Crash()
     {
-        RocketCollider.enabled = false;
-        anim.StopPlayback();
-        anim.enabled = false;
-        Ball.transform.parent = null;
-        rgbd2d.constraints = RigidbodyConstraints2D.None;
+        //Debug.Log("1");
+        //Debug.Log("2");
+        //Debug.Log("3");
+        //Debug.Log("4");
+        //Debug.Log("5");
     }
-
 
     private void FreeBall()
     {
