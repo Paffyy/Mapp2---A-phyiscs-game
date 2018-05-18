@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour {
  
     // Use this for initialization
     void Start () {
-        startLocation = ball.transform.position;
+        startLocation = new Vector3(ball.transform.position.x, ball.transform.position.y, 1);
         ball.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         tapped = new RaycastHit2D();
         if (stopButton != null)
@@ -45,12 +45,10 @@ public class GameController : MonoBehaviour {
         if (ball.GetComponent<Collider2D>().IsTouching(startLocationArea.GetComponent<Collider2D>()))
         {
             currentState = gameState.EDIT;
-            Debug.Log(currentState);
         }
         else
         {
             currentState = gameState.PLAY;
-            Debug.Log(currentState);
         }
         foreach (var item in Input.touches)
         {
@@ -108,6 +106,7 @@ public class GameController : MonoBehaviour {
     public void ResetBall()
     {
         ball.transform.position = startLocation;
+        ball.transform.rotation = new Quaternion(0, 0, 0, 0);
         ball.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         stopButton.interactable = false;
         stopButton.image.enabled = false;

@@ -66,7 +66,6 @@ public class UIMachine : MonoBehaviour, IDragHandler, IEndDragHandler {
             outOfBounds.SetActive(false);
             var topRight = new Vector3(rectTransform.position.x + rectTransform.sizeDelta.x / 2, rectTransform.position.y + rectTransform.sizeDelta.y / 2, rectTransform.position.z);
             var botLeft = new Vector3(rectTransform.position.x - rectTransform.sizeDelta.x / 2, rectTransform.position.y - rectTransform.sizeDelta.y / 2, rectTransform.position.z);
-            Debug.Log(botLeft.x + "" + botLeft.y);
             if (topRight.x > Camera.main.scaledPixelWidth - UIPanelWidth)
             {
                 rectTransform.position = startPos;

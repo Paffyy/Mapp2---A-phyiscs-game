@@ -23,7 +23,6 @@ public class InstansiateMachine : MonoBehaviour {
         anim = GetComponent<Animator>();
         sidePanelHide = true;
     }
-
     public void animTriggers()
     {
         Debug.Log("click MF");
@@ -44,9 +43,9 @@ public class InstansiateMachine : MonoBehaviour {
     {
         try
         {
-            Instantiate(prefab);
-            prefab.transform.position = new Vector3 (pos.x,pos.y);
-            prefab.SetActive(true);
+            var gameObject = Instantiate(prefab);
+            gameObject.transform.position = new Vector3 (pos.x,pos.y);
+            gameObject.SetActive(true);
         }
         catch (System.Exception)
         {

@@ -691,6 +691,16 @@ Prefab:
       propertyPath: m_TagString
       value: Machine
       objectReference: {fileID: 0}
+    - target: {fileID: 61405623037025228, guid: 7ee7dfd7d469bc4439c795ee454c98ac,
+        type: 2}
+      propertyPath: m_Offset.y
+      value: 0.04223299
+      objectReference: {fileID: 0}
+    - target: {fileID: 61405623037025228, guid: 7ee7dfd7d469bc4439c795ee454c98ac,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 6.0040855
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7ee7dfd7d469bc4439c795ee454c98ac, type: 2}
   m_IsPrefabParent: 0
@@ -1856,6 +1866,11 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 82804477248558806, guid: 13a47f2b2ac2d6445af935b229119047,
+        type: 2}
+      propertyPath: spreadCustomCurve.m_RotationOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 13a47f2b2ac2d6445af935b229119047, type: 2}
   m_IsPrefabParent: 0
@@ -2339,6 +2354,11 @@ Prefab:
       propertyPath: m_TagString
       value: Machine
       objectReference: {fileID: 0}
+    - target: {fileID: 114095014648446186, guid: 4b73695ea63c4f4408edefb89dec1e5d,
+        type: 2}
+      propertyPath: machine
+      value: 
+      objectReference: {fileID: 1345536800}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4b73695ea63c4f4408edefb89dec1e5d, type: 2}
   m_IsPrefabParent: 0
