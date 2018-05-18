@@ -687,6 +687,10 @@ Prefab:
       propertyPath: outOfBounds
       value: 
       objectReference: {fileID: 588506967}
+    - target: {fileID: 1122973149920606, guid: 7ee7dfd7d469bc4439c795ee454c98ac, type: 2}
+      propertyPath: m_TagString
+      value: Machine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7ee7dfd7d469bc4439c795ee454c98ac, type: 2}
   m_IsPrefabParent: 0
@@ -2331,6 +2335,10 @@ Prefab:
       propertyPath: outOfBounds
       value: 
       objectReference: {fileID: 588506967}
+    - target: {fileID: 1295628829596140, guid: 4b73695ea63c4f4408edefb89dec1e5d, type: 2}
+      propertyPath: m_TagString
+      value: Machine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4b73695ea63c4f4408edefb89dec1e5d, type: 2}
   m_IsPrefabParent: 0

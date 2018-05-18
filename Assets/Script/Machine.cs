@@ -6,7 +6,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Machine : MonoBehaviour {
+public class Machine : MonoBehaviour
+{
     public GameObject settingsPanel;
     public GameObject machine;
     public Canvas canvas;
@@ -23,73 +24,96 @@ public class Machine : MonoBehaviour {
     private float sliderValue;
     private GameObject panel;
     private Vector3 offset;
-    private float heldDownTime = 0;
+    private int tapCount = 0;
     private int settingsPanelWidth = 400;
     private int settingsPanelHeight = 400;
     private int latestButtonY = 170;
     private int UIPanelWidth = 150;
     private SpriteRenderer _sprite;
+    private RaycastHit2D tapped;
+    private float tapDelay;
+    private bool MachineWasHit = false;
+
     void Start()
     {
         outOfBounds.SetActive(false);
         _sprite = GetComponentInParent<SpriteRenderer>();
-        Input.multiTouchEnabled = false;
-
     }
+
     private void Update()
     {
-        var isOpen = false;
-        foreach (var item in Input.touches)
+
+        if (Input.touchCount > 0 && gameController.CanEdit())
         {
-            if (gameController.CanEdit())
+            if (Input.GetTouch(0).phase == TouchPhase.Began)
             {
-                if (item.phase == TouchPhase.Began && gameController.CanEdit() && !isOpen)
+                tapped = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position), -Vector2.up);
+                if (tapped.transform.CompareTag("Machine"))
                 {
-                    heldDownTime += Time.deltaTime;
-                    isOpen = true;
-                    if (panel == null)
+                    tapCount++;
+                    if (tapDelay == -1)
                     {
-                        ShowSettingsPanel();
+                        tapDelay = 0;
                     }
+                    MachineWasHit = true;
                 }
-                if (item.phase == TouchPhase.Moved && gameController.CanEdit() && isOpen)
+                else
                 {
-                    panel.SetActive(false);
-                    Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, transform.position.z);
-                    Vector3 curPostition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
-                    transform.position = curPostition;
+                    MachineWasHit = false;
                 }
-                if (item.phase == TouchPhase.Ended && gameController.CanEdit() && isOpen)
+            }
+            if (Input.GetTouch(0).phase == TouchPhase.Moved && MachineWasHit)
+            {
+                var touch = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
+                machine.transform.position = new Vector3(touch.x, touch.y, machine.transform.position.z);
+            }
+            if (Input.GetTouch(0).phase == TouchPhase.Ended && MachineWasHit)
+            {
+                // if outside, put in the middle
+                var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + _sprite.bounds.size.x / 2, machine.transform.position.y + _sprite.bounds.size.y / 2, machine.transform.position.z));
+                var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y - _sprite.bounds.size.y / 2, machine.transform.position.z));
+                if (topRight.x > Camera.main.scaledPixelWidth - UIPanelWidth)
                 {
-                    // if outside, put in the middle
-                    var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + _sprite.bounds.size.x / 2, machine.transform.position.y + _sprite.bounds.size.y / 2, machine.transform.position.z));
-                    var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y - _sprite.bounds.size.y / 2, machine.transform.position.z));
-                    if (topRight.x > Camera.main.scaledPixelWidth - UIPanelWidth)
-                    {
-                        machine.transform.position = new Vector3(0, 0);
-                        HideSettingsPanel(panel);
-                    }
-                    if (topRight.y > Camera.main.scaledPixelHeight)
-                    {
-                        machine.transform.position = new Vector3(0, 0);
-                        HideSettingsPanel(panel);
-                    }
-                    if (botLeft.x < 0)
-                    {
-                        machine.transform.position = new Vector3(0, 0);
-                        HideSettingsPanel(panel);
-                    }
-                    if (botLeft.y < 0)
-                    {
-                        machine.transform.position = new Vector3(0, 0);
-                        HideSettingsPanel(panel);
-                    }
-                    if (panel != null)
-                    {
-                        panel.SetActive(true);
-                        panel.transform.position = GetLocation();
-                    }
+                    machine.transform.position = new Vector3(0, 0);
+                    HideSettingsPanel(panel);
                 }
+                if (topRight.y > Camera.main.scaledPixelHeight)
+                {
+                    machine.transform.position = new Vector3(0, 0);
+                    HideSettingsPanel(panel);
+                }
+                if (botLeft.x < 0)
+                {
+                    machine.transform.position = new Vector3(0, 0);
+                    HideSettingsPanel(panel);
+                }
+                if (botLeft.y < 0)
+                {
+                    machine.transform.position = new Vector3(0, 0);
+                    HideSettingsPanel(panel);
+                }
+                if (panel != null)
+                {
+                    panel.SetActive(true);
+                    panel.transform.position = GetLocation();
+                }
+                // if double tapped
+                if (panel == null && tapCount >= 2 && tapDelay > 0.25)
+                {
+                    ShowSettingsPanel();
+                    tapDelay = -1;
+                    tapCount = 0;
+                }
+
+            }
+            if (MachineWasHit && tapDelay != -1)
+            {
+                tapDelay += Time.deltaTime;
+            }
+            if (tapDelay > 0.5f)
+            {
+                tapCount = 0;
+                tapDelay = -1;
             }
         }
     }
@@ -127,7 +151,7 @@ public class Machine : MonoBehaviour {
 
     public void AddButtonToPanel(string buttonText, Button.ButtonClickedEvent actions)
     {
-        Button button = Instantiate(ButtonTemplate, new Vector3(0, latestButtonY - 60), new Quaternion(0f,0f,0f,0f));
+        Button button = Instantiate(ButtonTemplate, new Vector3(0, latestButtonY - 60), new Quaternion(0f, 0f, 0f, 0f));
         var text = button.GetComponentInChildren<Text>();
         text.text = buttonText;
         button.onClick = actions;
@@ -137,7 +161,7 @@ public class Machine : MonoBehaviour {
 
     public void AddSliderToPanel(string sliderName, Slider.SliderEvent sliderEvents, int minValue, int maxValue)
     {
-        Slider slider = Instantiate(sliderTemplate, new Vector3(78, latestButtonY-60), new Quaternion(0f, 0f, 0f, 0f));
+        Slider slider = Instantiate(sliderTemplate, new Vector3(78, latestButtonY - 60), new Quaternion(0f, 0f, 0f, 0f));
         slider.GetComponentInChildren<Text>().text = sliderNames;
         slider.transform.SetParent(panel.transform, false);
         slider.wholeNumbers = true;
@@ -146,93 +170,93 @@ public class Machine : MonoBehaviour {
         slider.onValueChanged = sliderEvents;
         latestButtonY -= 60;
     }
-    void OnMouseDown()
-    {
-        if (gameController.CanEdit())
-        {
-            if (panel == null)
-            {
-                ShowSettingsPanel();
-            }
-            /* else if(settingsPanel.activeSelf)            försökte får så att man kunde gömma settings panel om man klickar en gång utan att lyckas
-            {
-                settingsPanel.SetActive(false);
-            }*/
-            var screenPoint = Camera.main.WorldToScreenPoint(machine.transform.position);
-            offset = machine.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
-        }
-    }
-    void OnMouseDrag()
-    {
-        if (gameController.CanEdit())
-        {
-            heldDownTime += Time.deltaTime;
-            if (heldDownTime > 0.6f)
-            {
-                panel.SetActive(false);
-            }
+    //void OnMouseDown()
+    //{
+    //    if (gameController.CanEdit())
+    //    {
+    //        if (panel == null)
+    //        {
+    //            ShowSettingsPanel();
+    //        }
+    //        /* else if(settingsPanel.activeSelf)            försökte får så att man kunde gömma settings panel om man klickar en gång utan att lyckas
+    //        {
+    //            settingsPanel.SetActive(false);
+    //        }*/
+    //        var screenPoint = Camera.main.WorldToScreenPoint(machine.transform.position);
+    //        offset = machine.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
+    //    }
+    //}
+    //void OnMouseDrag()
+    //{
+    //    if (gameController.CanEdit())
+    //    {
+    //        tapDelay += Time.deltaTime;
+    //        if (tapDelay > 0.6f)
+    //        {
+    //            panel.SetActive(false);
+    //        }
 
-            Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
-            Vector3 curPostition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
-            machine.transform.position = curPostition;
+    //        Vector3 curScreenPoint = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
+    //        Vector3 curPostition = Camera.main.ScreenToWorldPoint(curScreenPoint) + offset;
+    //        machine.transform.position = curPostition;
 
-            var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + _sprite.bounds.size.x / 2, machine.transform.position.y + _sprite.bounds.size.y / 2, machine.transform.position.z));
-            var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y - _sprite.bounds.size.y / 2, machine.transform.position.z));
-            if (topRight.x > Camera.main.scaledPixelWidth - UIPanelWidth)
-            {
-                outOfBounds.SetActive(true);
-            }
-            else
-            {
-                outOfBounds.SetActive(false);
-            }
-            if (topRight.y > Camera.main.scaledPixelHeight)
-            {
-                outOfBounds.SetActive(true);
-            }
-            if (botLeft.x < 0)
-            {
-                outOfBounds.SetActive(true);
-            }
-            if (botLeft.y < 0)
-            {
-                outOfBounds.SetActive(true);
-            }
-        }
+    //        var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + _sprite.bounds.size.x / 2, machine.transform.position.y + _sprite.bounds.size.y / 2, machine.transform.position.z));
+    //        var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y - _sprite.bounds.size.y / 2, machine.transform.position.z));
+    //        if (topRight.x > Camera.main.scaledPixelWidth - UIPanelWidth)
+    //        {
+    //            outOfBounds.SetActive(true);
+    //        }
+    //        else
+    //        {
+    //            outOfBounds.SetActive(false);
+    //        }
+    //        if (topRight.y > Camera.main.scaledPixelHeight)
+    //        {
+    //            outOfBounds.SetActive(true);
+    //        }
+    //        if (botLeft.x < 0)
+    //        {
+    //            outOfBounds.SetActive(true);
+    //        }
+    //        if (botLeft.y < 0)
+    //        {
+    //            outOfBounds.SetActive(true);
+    //        }
+    //    }
 
-    }
-    void OnMouseUp()
-    {
-        var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + _sprite.bounds.size.x / 2, machine.transform.position.y + _sprite.bounds.size.y / 2, machine.transform.position.z));
-        var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y - _sprite.bounds.size.y / 2, machine.transform.position.z));
-        if (topRight.x > Camera.main.scaledPixelWidth - UIPanelWidth)
-        {
-            machine.transform.position = new Vector3(0, 0);
-            HideSettingsPanel(panel);
-        }
-        if (topRight.y > Camera.main.scaledPixelHeight)
-        {
-            machine.transform.position = new Vector3(0, 0);
-            HideSettingsPanel(panel);
-        }
-        if (botLeft.x < 0)
-        {
-            machine.transform.position = new Vector3(0, 0);
-            HideSettingsPanel(panel);
-        }
-        if (botLeft.y < 0)
-        {
-            machine.transform.position = new Vector3(0, 0);
-            HideSettingsPanel(panel);
-        }
-        if (panel != null)
-        {
-            panel.SetActive(true);
-            panel.transform.position = GetLocation();
-        }
-        outOfBounds.SetActive(false);
+    //}
+    //void OnMouseUp()
+    //{
+    //    var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + _sprite.bounds.size.x / 2, machine.transform.position.y + _sprite.bounds.size.y / 2, machine.transform.position.z));
+    //    var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y - _sprite.bounds.size.y / 2, machine.transform.position.z));
+    //    if (topRight.x > Camera.main.scaledPixelWidth - UIPanelWidth)
+    //    {
+    //        machine.transform.position = new Vector3(0, 0);
+    //        HideSettingsPanel(panel);
+    //    }
+    //    if (topRight.y > Camera.main.scaledPixelHeight)
+    //    {
+    //        machine.transform.position = new Vector3(0, 0);
+    //        HideSettingsPanel(panel);
+    //    }
+    //    if (botLeft.x < 0)
+    //    {
+    //        machine.transform.position = new Vector3(0, 0);
+    //        HideSettingsPanel(panel);
+    //    }
+    //    if (botLeft.y < 0)
+    //    {
+    //        machine.transform.position = new Vector3(0, 0);
+    //        HideSettingsPanel(panel);
+    //    }
+    //    if (panel != null)
+    //    {
+    //        panel.SetActive(true);
+    //        panel.transform.position = GetLocation();
+    //    }
+    //    outOfBounds.SetActive(false);
 
-    }
+    //}
     // Returns location of the top right corner of the sprite converted to UI coordinates
     public Vector3 GetLocation()
     {
@@ -252,7 +276,7 @@ public class Machine : MonoBehaviour {
         }
         if (topLeft.y - settingsPanelHeight < 0) // outside bot
         {
-            location.y = topLeft.y + settingsPanelHeight / 2 ;
+            location.y = topLeft.y + settingsPanelHeight / 2;
             if (topLeft.y - settingsPanelHeight / 2 < 0)
             {
                 location.y = botRight.y + settingsPanelHeight;
