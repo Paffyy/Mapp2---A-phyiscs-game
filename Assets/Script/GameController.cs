@@ -17,6 +17,8 @@ public class GameController : MonoBehaviour {
     public GameObject startLocationArea;
     public int currentScene;
     public int levelCount;
+    public float animationDelay = 4;
+    private bool isGameOver = false;
     public enum gameState
     {
         EDIT,
@@ -41,21 +43,37 @@ public class GameController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (IsColliding())
+        if (isGameOver)
         {
+             animationDelay -= Time.deltaTime;
+        }
+        if (isGameOver)
+        {
+            ball.transform.gameObject.SetActive(false);
+
             if (currentScene + 1 > levelCount)
             {
                 ReturnToMenu();
             }
             else
             {
-                SceneManager.LoadScene(currentScene + 1);
+                if (animationDelay <= 0)
+                {
+                    SceneManager.LoadScene(currentScene + 1);
+                }
             }
         }
+        if (!isGameOver)
+        {
+            IsColliding();
+        }
     }
-    public bool IsColliding()
+    public void IsColliding()
     {
-        return ball.GetComponent<CircleCollider2D>().IsTouching(endArea);
+        if (ball.GetComponent<CircleCollider2D>().IsTouching(endArea))
+        {
+            isGameOver = true;
+        }
     }
 
     public bool CanEdit()

@@ -8,6 +8,8 @@ public class InstansiateMachine : MonoBehaviour {
     [Header("PREFABS ")] 
     public GameObject fanPrefab;
     public GameObject beltPrefab;
+    public GameObject rocketPrefab;
+    public GameObject flipPrefab;
     [Header("")]
     static bool sidePanelHide;
     public Transform machineSpawn;
@@ -15,8 +17,13 @@ public class InstansiateMachine : MonoBehaviour {
 
     public int fanCount;
     public int beltCount;
+    public int rocketCount;
+    public int flipCount;
+
     public Text fansLeft;
-    public Text beltLeft;
+    public Text beltsLeft;
+    public Text rocketsLeft;
+    public Text flipsLeft;
 
     private void Start()
     {
@@ -44,7 +51,7 @@ public class InstansiateMachine : MonoBehaviour {
         try
         {
             var gameObject = Instantiate(prefab);
-            gameObject.transform.position = new Vector3 (pos.x,pos.y);
+            gameObject.transform.position = new Vector3 (pos.x,pos.y,gameObject.transform.position.z);
             gameObject.SetActive(true);
         }
         catch (System.Exception)
@@ -62,6 +69,14 @@ public class InstansiateMachine : MonoBehaviour {
         else if (prefabType.Contains("fan"))
         {
             return fanCount;
+        }
+        else if (prefabType.Contains("rocket"))
+        {
+            return rocketCount;
+        }
+        else if (prefabType.Contains("flip"))
+        {
+            return rocketCount;
         }
         else
         {
@@ -81,6 +96,16 @@ public class InstansiateMachine : MonoBehaviour {
             fanCount--;
             count.text = fanCount.ToString();
 
+        }
+        else if (prefabType.Contains("rocket"))
+        {
+            rocketCount--;
+            count.text = rocketCount.ToString();
+        }
+        else if (prefabType.Contains("flip"))
+        {
+            flipCount--;
+            count.text = flipCount.ToString();
         }
     }
     public void instantiateFan()
@@ -102,6 +127,6 @@ public class InstansiateMachine : MonoBehaviour {
             beltPrefab.SetActive(true);
             beltCount--;
         }
-        beltLeft.text = beltCount.ToString();
+        beltsLeft.text = beltCount.ToString();
     }
 }

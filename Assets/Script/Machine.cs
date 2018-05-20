@@ -80,7 +80,7 @@ public class Machine : MonoBehaviour
                 // if outside, put in the middle
                 var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + _sprite.bounds.size.x / 2, machine.transform.position.y + _sprite.bounds.size.y / 2, machine.transform.position.z));
                 var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y - _sprite.bounds.size.y / 2, machine.transform.position.z));
-                if (topRight.x > Camera.main.scaledPixelWidth - UIPanelWidth)
+                if (topRight.x > Camera.main.scaledPixelWidth - (Camera.main.scaledPixelWidth / 8.7f))
                 {
                     machine.transform.position = new Vector3(0, 0);
                     HideSettingsPanel(panel);
@@ -136,11 +136,11 @@ public class Machine : MonoBehaviour
     {
         var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + _sprite.bounds.size.x / 2, machine.transform.position.y + _sprite.bounds.size.y / 2, machine.transform.position.z));
         var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y - _sprite.bounds.size.y / 2, machine.transform.position.z));
-        if (topRight.x > Camera.main.scaledPixelWidth - UIPanelWidth)
+        if (topRight.x > Camera.main.scaledPixelWidth - (Camera.main.scaledPixelWidth / 8.7f))
         {
             outOfBounds.SetActive(true);
         }
-        else
+        else // rör ej (gustav)
         {
             outOfBounds.SetActive(false);
         }

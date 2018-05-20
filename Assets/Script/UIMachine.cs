@@ -34,7 +34,7 @@ public class UIMachine : MonoBehaviour, IDragHandler, IEndDragHandler {
             rectTransform.position = Input.mousePosition;
             var topRight = new Vector3(rectTransform.position.x + rectTransform.sizeDelta.x / 2, rectTransform.position.y + rectTransform.sizeDelta.y / 2, rectTransform.position.z);
             var botLeft = new Vector3(rectTransform.position.x - rectTransform.sizeDelta.x / 2, rectTransform.position.y - rectTransform.sizeDelta.y / 2, rectTransform.position.z);
-            if (topRight.x > Camera.main.scaledPixelWidth - UIPanelWidth)
+            if (topRight.x > Camera.main.scaledPixelWidth - (Camera.main.scaledPixelWidth / 8.7f))
             {
                 outOfBounds.SetActive(true);
             }
@@ -66,7 +66,7 @@ public class UIMachine : MonoBehaviour, IDragHandler, IEndDragHandler {
             outOfBounds.SetActive(false);
             var topRight = new Vector3(rectTransform.position.x + rectTransform.sizeDelta.x / 2, rectTransform.position.y + rectTransform.sizeDelta.y / 2, rectTransform.position.z);
             var botLeft = new Vector3(rectTransform.position.x - rectTransform.sizeDelta.x / 2, rectTransform.position.y - rectTransform.sizeDelta.y / 2, rectTransform.position.z);
-            if (topRight.x > Camera.main.scaledPixelWidth - UIPanelWidth)
+            if (topRight.x > Camera.main.scaledPixelWidth - (Camera.main.scaledPixelWidth / 8.7f))
             {
                 rectTransform.position = startPos;
             }

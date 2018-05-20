@@ -14,6 +14,8 @@ TagManager:
   - Platform
   - Rocket
   - Machine
+  - Bounds
+  - Flip
   layers:
   - Default
   - TransparentFX
