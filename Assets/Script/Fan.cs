@@ -20,8 +20,6 @@ public class Fan : MonoBehaviour {
         transform.localScale = new Vector3(System.Math.Abs(transform.localScale.x) * (-1), transform.localScale.y, transform.localScale.z);
         ae2d.forceAngle = -180;
         GetComponentInChildren<FanRotation>().rotateDirection = 1;
-        
-
     }
     public void FlipRight()
     {

@@ -170,7 +170,6 @@ public class Machine : MonoBehaviour
         if (sliderEvents.GetPersistentEventCount() > 0 && !sliderNames.Equals(""))
         {
             AddSliderToPanel(sliderNames, panel1, sliderEvents, minValue, maxValue);
-            panel1.GetComponentInChildren<Slider>().value = sliderValue;
         }
         panel1.transform.SetParent(canvas.transform, false);
         panel1.transform.position = GetLocation();
@@ -180,6 +179,10 @@ public class Machine : MonoBehaviour
         });
         panel1.SetActive(true);
         panel = panel1;
+        if (sliderEvents.GetPersistentEventCount() > 0 && !sliderNames.Equals(""))
+        {
+            panel.GetComponentInChildren<Slider>().value = sliderValue;
+        }
     }
     public void HideSettingsPanel(GameObject panel1)
     {
