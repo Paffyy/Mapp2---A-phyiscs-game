@@ -75,9 +75,8 @@ public class Rocket : MonoBehaviour {
         {
             ReleaseBall();
             anim.StopPlayback();
-            anim.enabled = false;
             anim.SetBool("Reset", true);
-            rgbd2d.constraints = RigidbodyConstraints2D.None;
+            //rgbd2d.constraints = RigidbodyConstraints2D.None;
         }
     }
     public void OnTriggerExit2D(Collider2D collision)
