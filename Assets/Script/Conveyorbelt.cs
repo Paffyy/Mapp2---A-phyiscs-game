@@ -11,21 +11,20 @@ public class Conveyorbelt : MonoBehaviour
     private float ballMass = 0;
     public float defaultConveyorbeltSpeed = 3;
     public float conveyorbeltSpeed;
+    private int Direction = 1;
 
 
     void Start()
     {
         SetSpeed();
     }
-
-
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Ball"))
         {
             if (ball.velocity.x < conveyorbeltSpeed)
             {
-                ball.velocity = new Vector2(conveyorbeltSpeed, 0);
+                ball.velocity = new Vector2(System.Math.Abs(conveyorbeltSpeed) * Direction, 0);
             }
         }
     }
@@ -38,10 +37,13 @@ public class Conveyorbelt : MonoBehaviour
     public void FlipLeft()
     {
         transform.localScale = new Vector3(System.Math.Abs(transform.transform.localScale.x) * (-1), transform.transform.localScale.y, transform.transform.localScale.z);
+        Direction = -1;
     }
     public void FlipRight()
     {
         transform.localScale = new Vector3(System.Math.Abs(transform.transform.localScale.x), transform.transform.localScale.y, transform.transform.localScale.z);
+        Direction = 1;
+
     }
     public void SetSpeed()
     {

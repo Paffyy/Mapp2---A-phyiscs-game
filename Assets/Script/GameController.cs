@@ -41,37 +41,8 @@ public class GameController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-
-        if (ball.GetComponent<Collider2D>().IsTouching(startLocationArea.GetComponent<Collider2D>()))
-        {
-            currentState = gameState.EDIT;
-        }
-        else
-        {
-            currentState = gameState.PLAY;
-        }
-        foreach (var item in Input.touches)
-        {
-            if (item.phase == TouchPhase.Began)
-            {
-
-                tapped = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(item.position), -Vector2.up);
-
-            }
-            if (item.phase == TouchPhase.Moved && tapped.transform.CompareTag("move"))
-            {
-                Vector3 tapPos = new Vector3(item.position.x, item.position.y,1);
-                Vector3 objPos = Camera.main.ScreenToWorldPoint(tapPos);
-                tapped.transform.position = objPos;
-            }
-            if (item.phase == TouchPhase.Ended)
-            {
-                
-            }
-        }
         if (IsColliding())
         {
-            
             if (currentScene + 1 > levelCount)
             {
                 ReturnToMenu();
@@ -100,7 +71,7 @@ public class GameController : MonoBehaviour {
         playButton.image.enabled = false;
         stopButton.interactable = true;
         stopButton.image.enabled = true;
-
+        currentState = gameState.PLAY;
     }
 
     public void ResetBall()
@@ -112,7 +83,7 @@ public class GameController : MonoBehaviour {
         stopButton.image.enabled = false;
         playButton.interactable = true;
         playButton.image.enabled = true;
-
+        currentState = gameState.EDIT;
     }
 
     public void ReturnToMenu()
@@ -123,6 +94,7 @@ public class GameController : MonoBehaviour {
     public void ResetBoard()
     {
         SceneManager.LoadScene(currentScene);
+        currentState = gameState.EDIT;
     }
 
     //Vector3 getScreenPoint()
