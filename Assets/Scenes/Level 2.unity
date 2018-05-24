@@ -195,7 +195,7 @@ Prefab:
     - target: {fileID: 114001260176108516, guid: 1ffb8dc4104d5a04f8ce3f674651bf14,
         type: 2}
       propertyPath: currentScene
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114001260176108516, guid: 1ffb8dc4104d5a04f8ce3f674651bf14,
         type: 2}
@@ -974,7 +974,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &123513053
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1008,6 +1008,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NextFeedback: {fileID: 1494280752}
+  gameController: {fileID: 0}
 --- !u!114 &123513055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1373,6 +1374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NextFeedback: {fileID: 1723852425}
+  gameController: {fileID: 0}
 --- !u!114 &275545706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2127,6 +2129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NextFeedback: {fileID: 0}
+  gameController: {fileID: 0}
 --- !u!1 &538164646
 GameObject:
   m_ObjectHideFlags: 0
@@ -5158,6 +5161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NextFeedback: {fileID: 275545703}
+  gameController: {fileID: 0}
 --- !u!114 &1494280755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5698,6 +5702,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NextFeedback: {fileID: 512306015}
+  gameController: {fileID: 0}
 --- !u!114 &1723852428
 MonoBehaviour:
   m_ObjectHideFlags: 0

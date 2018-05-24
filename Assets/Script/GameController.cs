@@ -114,7 +114,10 @@ public class GameController : MonoBehaviour {
         SceneManager.LoadScene(currentScene);
         currentState = gameState.EDIT;
     }
-
+    public int GetCurrentScene()
+    {
+        return currentScene;
+    }
     //Vector3 getScreenPoint()
     //{
     //    return Camera.main.WorldToScreenPoint(new Vector3(Input.touches[0].deltaPosition.x, Input.touches[0].deltaPosition.y  screenPoint.z));

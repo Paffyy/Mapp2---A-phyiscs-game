@@ -24,10 +24,9 @@ public class Machine : MonoBehaviour
     private GameObject panel;
     private Vector3 offset;
     private int tapCount = 0;
-    private int settingsPanelWidth = 400;
-    private int settingsPanelHeight = 400;
+    private float settingsPanelWidth = 0.3125f;
+    private float settingsPanelHeight = 0.55f;
     private int latestButtonY = 170;
-    private int UIPanelWidth = 150;
     private SpriteRenderer _sprite;
     private RaycastHit2D tapped;
     private float tapDelay;
@@ -248,7 +247,7 @@ public class Machine : MonoBehaviour
         var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + _sprite.bounds.size.x / 2, machine.transform.position.y + _sprite.bounds.size.y / 2, machine.transform.position.z));
         var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y - _sprite.bounds.size.y / 2, machine.transform.position.z));
 
-        if (topRight.x > Camera.main.scaledPixelWidth - UIPanelWidth)
+        if (topRight.x > Camera.main.scaledPixelWidth - (Camera.main.scaledPixelWidth / 8.7f))
         {
             machine.transform.position = new Vector3(0, 0);
             HideSettingsPanel(panel);
@@ -297,23 +296,23 @@ public class Machine : MonoBehaviour
             location = new Vector3(topRight.x, botRight.y);
 
         }
-        if (topLeft.y - settingsPanelHeight < 0) // outside bot
+        if (topLeft.y - (Camera.main.pixelHeight * settingsPanelHeight) < 0) // outside bot
         {
-            location.y = topLeft.y + settingsPanelHeight / 2;
-            if (topLeft.y - settingsPanelHeight / 2 < 0)
+            location.y = topLeft.y + (Camera.main.pixelHeight * settingsPanelHeight) / 2;
+            if (topLeft.y - (Camera.main.pixelHeight * settingsPanelHeight) / 2 < 0)
             {
-                location.y = botRight.y + settingsPanelHeight;
+                location.y = botRight.y + (Camera.main.pixelHeight * settingsPanelHeight);
                 if (botLeft.y < 0)
                 {
-                    location.y = topRight.y + settingsPanelHeight;
+                    location.y = topRight.y + (Camera.main.pixelHeight * settingsPanelHeight);
                 }
             }
         }
-        if (topRight.x + settingsPanelWidth > Camera.main.pixelWidth) // outside right
+        if (topRight.x + (Camera.main.pixelWidth * settingsPanelWidth) > Camera.main.pixelWidth) // outside right
         {
-            location.x = topLeft.x - settingsPanelWidth;
+            location.x = topLeft.x - (Camera.main.pixelWidth * settingsPanelWidth);
         }
-        if (topLeft.x - settingsPanelWidth < 0) // outside left
+        if (topLeft.x - (Camera.main.pixelWidth * settingsPanelWidth) < 0) // outside left
         {
             location.x = topRight.x;
         }

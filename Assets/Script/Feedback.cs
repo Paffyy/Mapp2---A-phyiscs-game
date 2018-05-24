@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class Feedback : MonoBehaviour {
 
     public GameObject NextFeedback;
+    public GameController gameController;
 	// Use this for initialization
 	void Start () {
 	}
@@ -24,12 +25,12 @@ public class Feedback : MonoBehaviour {
             GoToNextFeedback();
         }
 	}
-
     public void GoToNextFeedback()
     {
         if (NextFeedback == null)
         {
             Destroy(this.gameObject);
+            SceneManager.LoadScene(gameController.GetCurrentScene() + 1);
         }
         else
         {
