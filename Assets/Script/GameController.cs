@@ -51,13 +51,13 @@ public class GameController : MonoBehaviour {
         {
             ball.transform.gameObject.SetActive(false);
 
-            if (currentScene + 1 > levelCount)
+            if (animationDelay <= 0)
             {
-                ReturnToMenu();
-            }
-            else
-            {
-                if (animationDelay <= 0)
+                if (currentScene + 1 > levelCount)
+                {
+                    ReturnToMenu();
+                }
+                else
                 {
                     SceneManager.LoadScene(currentScene + 1);
                 }
