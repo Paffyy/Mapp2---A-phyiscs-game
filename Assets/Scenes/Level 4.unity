@@ -5505,8 +5505,7 @@ Prefab:
         type: 2}
       propertyPath: VfxHeal
       value: 
-      objectReference: {fileID: 198415754620244596, guid: 8de1f6e391476da4a9face3cefd5dbfc,
-        type: 2}
+      objectReference: {fileID: 1830015942}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: aae8b10652ce70e419a92d478794d9d5, type: 2}
   m_IsPrefabParent: 0
@@ -6827,6 +6826,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8de1f6e391476da4a9face3cefd5dbfc, type: 2}
   m_IsPrefabParent: 0
+--- !u!198 &1830015942 stripped
+ParticleSystem:
+  m_PrefabParentObject: {fileID: 198415754620244596, guid: 8de1f6e391476da4a9face3cefd5dbfc,
+    type: 2}
+  m_PrefabInternal: {fileID: 1830015941}
 --- !u!1001 &1833404406
 Prefab:
   m_ObjectHideFlags: 0
