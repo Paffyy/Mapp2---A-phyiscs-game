@@ -12,11 +12,17 @@ EditorBuildSettings:
     path: Assets/Scenes/Level Feedback.unity
     guid: 21971e4bad8cfc742941edb1d74927ba
   - enabled: 1
-    path: Assets/Scenes/Level 2.unity
-    guid: ee50e2b522d866c45b24dc6e2bfe5f77
+    path: Assets/Scenes/Level 1.unity
+    guid: eea427c3528714e458d0cb833138ffe9
   - enabled: 1
-    path: Assets/Scenes/Level 6.unity
+    path: Assets/Scenes/Level 2.unity
     guid: 5ac32b940e3d31c4c977018fc7e8de1b
   - enabled: 1
-    path: Assets/Scenes/Level 5.unity
+    path: Assets/Scenes/Level 3.unity
     guid: 33406b8917e442840a79e99fcb3963e0
+  - enabled: 1
+    path: Assets/Scenes/Level 4.unity
+    guid: 81ba43e5edd2cd74fb60fd33ce31b572
+  - enabled: 1
+    path: Assets/Scenes/Level 5.unity
+    guid: 1643e779e3c243546bdbb1c02bb06324

@@ -76,7 +76,7 @@ public class InstansiateMachine : MonoBehaviour {
         }
         else if (prefabType.Contains("flip"))
         {
-            return rocketCount;
+            return flipCount;
         }
         else
         {

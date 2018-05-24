@@ -84,7 +84,7 @@ public class Rocket : MonoBehaviour {
     }
     public void SetFlyTime()
     {
-        FlyTime = machine.GetComponent<Machine>().GetSliderValue();
+        FlyTime = machine.GetComponent<Machine>().GetSliderValue() - 0.5f;
     }
     public void ReleaseBall()
     {
