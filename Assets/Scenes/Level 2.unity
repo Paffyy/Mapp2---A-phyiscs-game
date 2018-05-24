@@ -954,6 +954,11 @@ Prefab:
       propertyPath: actions.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 736095166}
+    - target: {fileID: 114263709685718510, guid: 7ee7dfd7d469bc4439c795ee454c98ac,
+        type: 2}
+      propertyPath: maxValue
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7ee7dfd7d469bc4439c795ee454c98ac, type: 2}
   m_IsPrefabParent: 0
@@ -1561,7 +1566,7 @@ Prefab:
     - target: {fileID: 114263709685718510, guid: 7ee7dfd7d469bc4439c795ee454c98ac,
         type: 2}
       propertyPath: minValue
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114263709685718510, guid: 7ee7dfd7d469bc4439c795ee454c98ac,
         type: 2}
@@ -4614,6 +4619,11 @@ Prefab:
       propertyPath: sliderNames
       value: SetSpeed
       objectReference: {fileID: 0}
+    - target: {fileID: 114095014648446186, guid: 4b73695ea63c4f4408edefb89dec1e5d,
+        type: 2}
+      propertyPath: maxValue
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4b73695ea63c4f4408edefb89dec1e5d, type: 2}
   m_IsPrefabParent: 0
@@ -5058,7 +5068,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1447042185}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.66, y: 2.79, z: -0.140625}
+  m_LocalPosition: {x: 0, y: 0, z: -0.140625}
   m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_Children:
   - {fileID: 291475997}
@@ -5598,13 +5608,15 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 1.7193365, y: 4.814568}
+    - - {x: 1.009812, y: 5.370958}
       - {x: 0.25476953, y: 5.6141434}
+      - {x: -0.8497228, y: 5.3019533}
       - {x: -1.4441136, y: 4.7994914}
-      - {x: -1.9417497, y: 4.4140573}
-      - {x: -0.9797433, y: 2.9717062}
-      - {x: 1.2577629, y: 2.9118347}
-      - {x: 3.1808705, y: 3.2529716}
+      - {x: -1.60935, y: 4.6858497}
+      - {x: -1.4105613, y: 3.9378307}
+      - {x: 0.90966064, y: 3.9046779}
+      - {x: 1.7302374, y: 3.9262266}
+      - {x: 1.9293029, y: 4.6390805}
 --- !u!61 &1678000805
 BoxCollider2D:
   m_ObjectHideFlags: 0
