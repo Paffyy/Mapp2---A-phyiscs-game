@@ -123,6 +123,10 @@ public class Machine : MonoBehaviour
         {
             ResetTap();
         }
+        if (!gameController.CanEdit())
+        {
+            HideSettingsPanel(panel);
+        }
     }
 
     private void ResetTap()
