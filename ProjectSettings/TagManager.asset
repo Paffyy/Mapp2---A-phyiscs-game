@@ -16,6 +16,7 @@ TagManager:
   - Machine
   - Bounds
   - Flip
+  - Cannon
   layers:
   - Default
   - TransparentFX
