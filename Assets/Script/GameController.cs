@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour {
  
     // Use this for initialization
     void Start () {
+        Screen.orientation = ScreenOrientation.Landscape;
         startLocation = new Vector3(ball.transform.position.x, ball.transform.position.y, 1);
         ball.GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll;
         tapped = new RaycastHit2D();
@@ -117,19 +118,5 @@ public class GameController : MonoBehaviour {
     public int GetCurrentScene()
     {
         return currentScene;
-    }
-    //Vector3 getScreenPoint()
-    //{
-    //    return Camera.main.WorldToScreenPoint(new Vector3(Input.touches[0].deltaPosition.x, Input.touches[0].deltaPosition.y  screenPoint.z));
-
-    //}
-
-    public void TappedMachine()
-    {
-
-    }
-    public void TapAndMoving()
-    {
-
     }
 }
