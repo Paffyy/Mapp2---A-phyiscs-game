@@ -8,22 +8,33 @@ public class Rocket : MonoBehaviour {
     public GameObject RocketParent;
     public BoxCollider2D RocketCollider;
     public GameController gameController;
+    public float defaultFlyTime;
+    public GameObject machine;
+    public AudioClip rocketSound;
+    public ParticleSystem rocketVFX;
+
+
+
+    private AudioSource audioS;
     private Animator anim;
     private Rigidbody2D rgbd2d;
     private bool isFlying = false;
-    public GameObject machine;
     private float FlyTime;
-    public float defaultFlyTime;
     private bool isLocationSet = true;
     private Vector3 start;
     private bool hasFlown = false;
     private bool hasEntered = false;
+
+
+
     // Use this for initialization
     void Start () {
         anim = RocketParent.GetComponent<Animator>();
         rgbd2d = GetComponent<Rigidbody2D>();
         anim.enabled = true;
         SetFlyTime();
+        audioS = GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -79,6 +90,10 @@ public class Rocket : MonoBehaviour {
                 anim.enabled = true;
                 anim.SetBool("Reset", false);
                 hasEntered = true;
+                audioS.PlayOneShot(rocketSound, 0.2f);
+                rocketVFX.Play();
+                Debug.Log("dingdon");
+
             }
             if (collision.CompareTag("Platform"))
             {
