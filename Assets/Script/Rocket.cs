@@ -17,13 +17,13 @@ public class Rocket : MonoBehaviour {
     private bool isLocationSet = true;
     private Vector3 start;
     private bool hasFlown = false;
-
+    private bool hasEntered = false;
     // Use this for initialization
     void Start () {
         anim = RocketParent.GetComponent<Animator>();
         rgbd2d = GetComponent<Rigidbody2D>();
         anim.enabled = true;
-        FlyTime = defaultFlyTime;
+        SetFlyTime();
     }
 
     // Update is called once per frame
@@ -35,8 +35,9 @@ public class Rocket : MonoBehaviour {
             if (FlyTime <= 0)
             {
                 ReleaseBall();
+                SetFlyTime();
                 isFlying = false;
-                FlyTime = defaultFlyTime;
+                hasEntered = false;
             }
         }
         if (!gameController.CanEdit() && isLocationSet)
@@ -46,7 +47,7 @@ public class Rocket : MonoBehaviour {
         }
         if (gameController.CanEdit() && !isLocationSet)
         {
-            ReleaseBall();
+            Ball.transform.parent = null;
             anim.SetBool("Reset", true);
             anim.StopPlayback();
             isFlying = false;
@@ -54,12 +55,14 @@ public class Rocket : MonoBehaviour {
             RocketParent.transform.localPosition = start;
             RocketParent.transform.rotation = new Quaternion(0, 0, 0, 0);
             hasFlown = false;
+            hasEntered = false;
         }
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Ball") && !hasFlown)
+        
+        if (other.CompareTag("Ball") && !gameController.CanEdit() && hasEntered) 
         {
             Ball.transform.parent = transform;
             Ball.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
@@ -69,39 +72,43 @@ public class Rocket : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Ball") && !hasFlown)
+        if (!gameController.CanEdit())
         {
-            anim.enabled = true;
-            anim.SetBool("Reset", false);
+            if (collision.CompareTag("Ball") && !hasFlown)
+            {
+                anim.enabled = true;
+                anim.SetBool("Reset", false);
+                hasEntered = true;
+            }
+            if (collision.CompareTag("Platform"))
+            {
+                ReleaseBall();
+                anim.StopPlayback();
+                anim.SetBool("Reset", true);
+                hasEntered = false;
+                //rgbd2d.constraints = RigidbodyConstraints2D.None;
+            }
         }
-        if (collision.CompareTag("Platform"))
-        {
-            ReleaseBall();
-            anim.StopPlayback();
-            anim.SetBool("Reset", true);
-            //rgbd2d.constraints = RigidbodyConstraints2D.None;
-        }
-    }
-    public void OnTriggerExit2D(Collider2D collision)
-    {
     }
     public void SetFlyTime()
     {
-        FlyTime = machine.GetComponent<Machine>().GetSliderValue() - 0.5f;
+        FlyTime = defaultFlyTime + machine.GetComponent<Machine>().GetSliderValue() - 0.5f;
     }
     public void ReleaseBall()
     {
         Ball.transform.parent = null;
-        hasFlown = true;
     }
     public void FlipLeft()
     {
         transform.localScale = new Vector3(System.Math.Abs(RocketParent.transform.transform.localScale.x) * (-1), RocketParent.transform.transform.localScale.y, RocketParent.transform.transform.localScale.z);
         anim.SetInteger("Direction", 1);
+        RocketParent.GetComponent<SpriteRenderer>().flipX = false;
+
     }
     public void FlipRight()
     {
         transform.localScale = new Vector3(System.Math.Abs(RocketParent.transform.transform.localScale.x), RocketParent.transform.transform.localScale.y, RocketParent.transform.transform.localScale.z);
+        RocketParent.GetComponent<SpriteRenderer>().flipX = true;
         anim.SetInteger("Direction", 0);
 
     }
