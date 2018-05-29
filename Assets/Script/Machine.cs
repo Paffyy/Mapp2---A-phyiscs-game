@@ -31,9 +31,10 @@ public class Machine : MonoBehaviour
     private RaycastHit2D tapped;
     private float tapDelay;
     private bool MachineWasHit = false;
-    private bool IsClicking = false;
     private Transform machine;
-
+    private bool IsShown = false;
+    private bool IsNotMoving = true;
+    private Vector3 startPos;
     void Start()
     {
         _sprite = GetComponentInParent<SpriteRenderer>();
@@ -47,13 +48,8 @@ public class Machine : MonoBehaviour
             if (Input.GetTouch(0).phase == TouchPhase.Began)
             {
                 tapped = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position), -Vector2.up);
-                if (tapped.transform.CompareTag("Machine") && tapped.transform.GetComponentInChildren<GameObject>().transform.CompareTag("Machine"))
+                if(tapped.collider.CompareTag("Machine") && tapped.transform.GetComponentInChildren<GameObject>().transform.CompareTag("Machine"))
                 {
-                    tapCount++;
-                    if (tapDelay == -1)
-                    {
-                        tapDelay = 0;
-                    }
                     MachineWasHit = true;
                 }
                 else
@@ -61,18 +57,24 @@ public class Machine : MonoBehaviour
                     MachineWasHit = false;
                 }
             }
+            if (Input.GetTouch(0).phase == TouchPhase.Stationary)
+            {
+                IsNotMoving = true;
+            }
             if (Input.GetTouch(0).phase == TouchPhase.Moved && MachineWasHit)
             {
-                if (panel != null)
-                {
-                    HideSettingsPanel(panel);
-                }
                 var touch = Camera.main.ScreenToWorldPoint(Input.GetTouch(0).position);
                 if (tapped.transform.CompareTag("Machine"))
                 {
+                    if (IsShown && IsNotMoving && panel != null)
+                    {
+                        HideSettingsPanel(panel);
+                    }
                     tapped.transform.position = new Vector3(touch.x, touch.y, machine.transform.position.z);
+                    CheckIfOutside();
                 }
-                CheckIfOutside();
+                IsNotMoving = false;
+
             }
             if (Input.GetTouch(0).phase == TouchPhase.Ended && MachineWasHit)
             {
@@ -99,40 +101,17 @@ public class Machine : MonoBehaviour
                     machine.transform.position = new Vector3(0, 0);
                     HideSettingsPanel(panel);
                 }
-                if (panel != null)
+                if (IsNotMoving && !IsShown && panel == null)
                 {
-                    panel.SetActive(true);
-                    panel.transform.position = GetLocation();
-                }
-                // if double tapped
-                if (panel == null && tapCount >= 2 && tapDelay > 0.25)
-                {
-                    if (tapped.transform.CompareTag("Machine"))
-                    {
-                        ShowSettingsPanel();
-                    }
+                    ShowSettingsPanel();
                 }
                 outOfBounds.SetActive(false);
             }
         }
-        if ((MachineWasHit && tapDelay != -1) || (IsClicking && tapDelay != -1))
-        {
-            tapDelay += Time.deltaTime;
-        }
-        if (tapDelay > 0.5f)
-        {
-            ResetTap();
-        }
-        if (!gameController.CanEdit())
+        if (!gameController.CanEdit() && IsShown)
         {
             HideSettingsPanel(panel);
         }
-    }
-
-    private void ResetTap()
-    {
-        tapCount = 0;
-        tapDelay = -1;
     }
 
     private void CheckIfOutside()
@@ -163,28 +142,31 @@ public class Machine : MonoBehaviour
 
     public void ShowSettingsPanel()
     {
-        ResetTap();
-        var panel1 = Instantiate(settingsPanel);
-        for (var i = 0; i < actions.Length && i < actionNames.Length; i++)
+        if (!IsShown && panel == null)
         {
-            AddButtonToPanel(actionNames[i], actions[i], panel1);
-        }
+            var panel1 = Instantiate(settingsPanel);
+            for (var i = 0; i < actions.Length && i < actionNames.Length; i++)
+            {
+                AddButtonToPanel(actionNames[i], actions[i], panel1);
+            }
 
-        if (sliderEvents.GetPersistentEventCount() > 0 && !sliderNames.Equals(""))
-        {
-            AddSliderToPanel(sliderNames, panel1, sliderEvents, minValue, maxValue);
-        }
-        panel1.transform.SetParent(canvas.transform, false);
-        panel1.transform.position = GetLocation();
-        panel1.GetComponentInChildren<Button>().onClick.AddListener(() =>
-        {
-            HideSettingsPanel(panel1);
-        });
-        panel1.SetActive(true);
-        panel = panel1;
-        if (sliderEvents.GetPersistentEventCount() > 0 && !sliderNames.Equals(""))
-        {
-            panel.GetComponentInChildren<Slider>().value = sliderValue;
+            if (sliderEvents.GetPersistentEventCount() > 0 && !sliderNames.Equals(""))
+            {
+                AddSliderToPanel(sliderNames, panel1, sliderEvents, minValue, maxValue);
+            }
+            panel1.transform.SetParent(canvas.transform, false);
+            panel1.transform.position = GetLocation();
+            panel1.GetComponentInChildren<Button>().onClick.AddListener(() =>
+            {
+                HideSettingsPanel(panel1);
+            });
+            panel1.SetActive(true);
+            panel = panel1;
+            if (sliderEvents.GetPersistentEventCount() > 0 && !sliderNames.Equals(""))
+            {
+                panel.GetComponentInChildren<Slider>().value = sliderValue;
+            }
+            IsShown = true;
         }
     }
     public void HideSettingsPanel(GameObject panel1)
@@ -193,6 +175,7 @@ public class Machine : MonoBehaviour
         {
             Destroy(panel1);
             latestButtonY = 170;
+            IsShown = false;
         }
     }
 
@@ -223,19 +206,14 @@ public class Machine : MonoBehaviour
         {
             var screenPoint = Camera.main.WorldToScreenPoint(machine.transform.position);
             offset = machine.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10));
-            tapCount++;
-            if (tapDelay == -1)
-            {
-                tapDelay = 0;
-            }
-            IsClicking = true;
+            startPos = machine.transform.position;
         }
     }
     void OnMouseDrag()
     {
         if (gameController.CanEdit())
         {
-            if (panel != null)
+            if (IsShown && startPos != machine.transform.position)
             {
                 HideSettingsPanel(panel);
             }
@@ -250,7 +228,6 @@ public class Machine : MonoBehaviour
         // if outside, put in the middle
         var topRight = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x + _sprite.bounds.size.x / 2, machine.transform.position.y + _sprite.bounds.size.y / 2, machine.transform.position.z));
         var botLeft = Camera.main.WorldToScreenPoint(new Vector3(machine.transform.position.x - _sprite.bounds.size.x / 2, machine.transform.position.y - _sprite.bounds.size.y / 2, machine.transform.position.z));
-
         if (topRight.x > Camera.main.scaledPixelWidth - (Camera.main.scaledPixelWidth / 8.7f))
         {
             machine.transform.position = new Vector3(0, 0);
@@ -271,13 +248,8 @@ public class Machine : MonoBehaviour
             machine.transform.position = new Vector3(0, 0);
             HideSettingsPanel(panel);
         }
-        if (panel != null)
-        {
-            panel.SetActive(true);
-            panel.transform.position = GetLocation();
-        }
         // if double tapped
-        if (panel == null && tapCount >= 2 && tapDelay > 0.15)
+        if (startPos == machine.transform.position && !IsShown)
         {
             ShowSettingsPanel();
         }
