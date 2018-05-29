@@ -6043,9 +6043,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 7
-  m_Sprite: {fileID: 21300000, guid: b2da10a9061ffb04fb3db1c624cb0c3b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 82a9f60f322217b42bc117b65eb01fdb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 5, y: 8.45}
@@ -6521,7 +6521,7 @@ MonoBehaviour:
   RocketCollider: {fileID: 1678000805}
   gameController: {fileID: 6042548}
   machine: {fileID: 401328764}
-  defaultFlyTime: 2.5
+  defaultFlyTime: 1.5
 --- !u!60 &1678000804
 PolygonCollider2D:
   m_ObjectHideFlags: 0
