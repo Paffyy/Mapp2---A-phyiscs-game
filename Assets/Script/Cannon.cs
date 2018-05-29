@@ -9,6 +9,8 @@ public class Cannon : MonoBehaviour
     public GameObject ball;
     public GameController gameController;
     private AreaEffector2D ae2d;
+    public ParticleSystem vfx;
+    private bool hasShot = false;
 
     // Use this for initialization
     void Start()
@@ -19,11 +21,10 @@ public class Cannon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (ball.GetComponent<CircleCollider2D>().IsTouching(this.GetComponent<CircleCollider2D>()))
-        //{
-        //    ball.GetComponent<SpriteRenderer>().enabled = false;
-        //    ae2d.enabled = true;
-        //}
+        if (gameController.CanEdit())
+        {
+            hasShot = false;
+        }
     }
     public void FlipLeft()
     {
@@ -41,28 +42,29 @@ public class Cannon : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Ball"))
+        if (collision.CompareTag("Ball") && !hasShot)
         {
             ball.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+            ae2d.enabled = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Ball"))
+        if (collision.CompareTag("Ball") && !hasShot)
         {
             ball.GetComponent<SpriteRenderer>().enabled = true;
+            vfx.Play();
             ae2d.enabled = false;
-  
+            hasShot = true;
         }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Ball"))
+        if (collision.CompareTag("Ball") && !hasShot)
         {
             ball.GetComponent<SpriteRenderer>().enabled = false;
-            ae2d.enabled = true;
         }
     }
 

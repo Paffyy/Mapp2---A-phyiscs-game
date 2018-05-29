@@ -18,12 +18,12 @@ public class InstansiateMachine : MonoBehaviour {
     public int fanCount;
     public int beltCount;
     public int rocketCount;
-    public int flipCount;
+    public int cannonCount;
 
     public Text fansLeft;
     public Text beltsLeft;
     public Text rocketsLeft;
-    public Text flipsLeft;
+    public Text cannonLeft;
 
     private void Start()
     {
@@ -74,9 +74,9 @@ public class InstansiateMachine : MonoBehaviour {
         {
             return rocketCount;
         }
-        else if (prefabType.Contains("flip"))
+        else if (prefabType.Contains("cannon"))
         {
-            return flipCount;
+            return cannonCount;
         }
         else
         {
@@ -102,10 +102,10 @@ public class InstansiateMachine : MonoBehaviour {
             rocketCount--;
             count.text = rocketCount.ToString();
         }
-        else if (prefabType.Contains("flip"))
+        else if (prefabType.Contains("cannon"))
         {
-            flipCount--;
-            count.text = flipCount.ToString();
+            cannonCount--;
+            count.text = cannonCount.ToString();
         }
     }
     public void instantiateFan()
