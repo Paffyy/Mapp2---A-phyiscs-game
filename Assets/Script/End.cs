@@ -24,7 +24,7 @@ public class End : MonoBehaviour {
             deadRat.SetActive(false);
             aliveRat.SetActive(true);
             VfxHeal.Play();
-            audioS.PlayOneShot(ratHeal, 0.1f);
+            audioS.PlayOneShot(ratHeal, 1f);
 
         }
 	}
