@@ -16,7 +16,8 @@ public class Rocket : MonoBehaviour {
     public float defaultFlyTime;
     private bool isLocationSet = true;
     private Vector3 start;
-    
+    private bool hasFlown = false;
+
     // Use this for initialization
     void Start () {
         anim = RocketParent.GetComponent<Animator>();
@@ -42,21 +43,23 @@ public class Rocket : MonoBehaviour {
         {
             isLocationSet = false;
             start = new Vector3(RocketParent.transform.position.x, RocketParent.transform.position.y, RocketParent.transform.position.z);
-            RocketCollider.enabled = true;
         }
         if (gameController.CanEdit() && !isLocationSet)
         {
+            ReleaseBall();
             anim.SetBool("Reset", true);
             anim.StopPlayback();
+            isFlying = false;
             isLocationSet = true;
             RocketParent.transform.localPosition = start;
             RocketParent.transform.rotation = new Quaternion(0, 0, 0, 0);
+            hasFlown = false;
         }
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Ball"))
+        if (other.CompareTag("Ball") && !hasFlown)
         {
             Ball.transform.parent = transform;
             Ball.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
@@ -66,7 +69,7 @@ public class Rocket : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Ball"))
+        if (collision.CompareTag("Ball") && !hasFlown)
         {
             anim.enabled = true;
             anim.SetBool("Reset", false);
@@ -88,23 +91,8 @@ public class Rocket : MonoBehaviour {
     }
     public void ReleaseBall()
     {
-        RocketCollider.enabled = false;
         Ball.transform.parent = null;
-    }
-    public void Crash()
-    {
-        //Debug.Log("1");
-        //Debug.Log("2");
-        //Debug.Log("3");
-        //Debug.Log("4");
-        //Debug.Log("5");
-    }
-
-    private void FreeBall()
-    {
-        //   rocketDoor.enabled = false;
-       // rocketCollider.enabled = false;
-      //  ball.transform.parent = null;
+        hasFlown = true;
     }
     public void FlipLeft()
     {
