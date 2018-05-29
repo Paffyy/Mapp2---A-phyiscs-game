@@ -8,10 +8,13 @@ public class End : MonoBehaviour {
     public GameObject deadRat;
     public GameObject aliveRat;
     public ParticleSystem VfxHeal;
+    public AudioClip ratHeal;
+    private AudioSource audioS;
+
 
     private void Start()
     {
-    
+        audioS = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -21,7 +24,7 @@ public class End : MonoBehaviour {
             deadRat.SetActive(false);
             aliveRat.SetActive(true);
             VfxHeal.Play();
-
+            audioS.PlayOneShot(ratHeal, 0.1f);
 
         }
 	}
