@@ -3918,7 +3918,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4387961650323116, guid: 13a47f2b2ac2d6445af935b229119047, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -10.39
+      value: 9.41
       objectReference: {fileID: 0}
     - target: {fileID: 4387961650323116, guid: 13a47f2b2ac2d6445af935b229119047, type: 2}
       propertyPath: m_LocalPosition.z
@@ -3974,7 +3974,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4522460992704862, guid: 5919d4255f26cda43bac9e612ee6cb21, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -10.040001
+      value: 9.759998
       objectReference: {fileID: 0}
     - target: {fileID: 4522460992704862, guid: 5919d4255f26cda43bac9e612ee6cb21, type: 2}
       propertyPath: m_LocalPosition.z
@@ -5886,6 +5886,7 @@ MonoBehaviour:
   ball: {fileID: 145650207}
   gameController: {fileID: 6042548}
   vfx: {fileID: 2004117792}
+  sound: {fileID: 0}
 --- !u!212 &1616413668
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6127,8 +6128,10 @@ MonoBehaviour:
   RocketParent: {fileID: 1447042185}
   RocketCollider: {fileID: 1678000805}
   gameController: {fileID: 6042548}
-  machine: {fileID: 0}
   defaultFlyTime: 1
+  machine: {fileID: 0}
+  rocketSound: {fileID: 0}
+  rocketVFX: {fileID: 0}
 --- !u!60 &1678000804
 PolygonCollider2D:
   m_ObjectHideFlags: 0
